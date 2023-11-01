@@ -27,17 +27,32 @@
 //     }
 // }
 
-enum Direction {
-    Left,
-    Right,
-    Up
+// enum Direction {
+//     Left,
+//     Right,
+//     Up
+// }
+
+// fn main() {
+//     let go = Direction::Left;
+//     match go {
+//         Direction::Left => println!("go left"),
+//         Direction::Right => println!("go right"),
+//         Direction::Up => println!("go up"),
+//     }
+// }
+
+struct GroceryItem {
+    stock: i32,
+    price: f64,
 }
 
 fn main() {
-    let go = Direction::Left;
-    match go {
-        Direction::Left => println!("go left"),
-        Direction::Right => println!("go right"),
-        Direction::Up => println!("go up"),
-    }
+    let cereal = GroceryItem {
+        stock: 10,
+        price: 2.99,
+    };
+
+    println!("stock {:?}", cereal.stock);
+    println!("price {:?}", cereal.price);
 }

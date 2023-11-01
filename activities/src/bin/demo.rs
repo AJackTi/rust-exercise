@@ -57,20 +57,38 @@
 //     println!("price {:?}", cereal.price);
 // }
 
-fn main() {
-    let coord = (2,3);
-    println!("{:?} {:?}", coord.0, coord.1);
+// fn main() {
+//     let coord = (2,3);
+//     println!("{:?} {:?}", coord.0, coord.1);
     
-    let (x,y) = (2,3);
-    println!("{:?} {:?}", x, y);
+//     let (x,y) = (2,3);
+//     println!("{:?} {:?}", x, y);
 
-    let (name, age) = ("Emma", 20);
-    println!("{:?} {:?}", name, age);
+//     let (name, age) = ("Emma", 20);
+//     println!("{:?} {:?}", name, age);
 
-    let favorites = ("red", 14, "TX", "pizza", "TV SHOW", "home");
+//     let favorites = ("red", 14, "TX", "pizza", "TV SHOW", "home");
 
-    let state = favorites.2;
-    let place = favorites.5;
-    print!("state: {:?}", state);
-    print!("place: {:?}", place);
+//     let state = favorites.2;
+//     let place = favorites.5;
+//     print!("state: {:?}", state);
+//     print!("place: {:?}", place);
+// }
+
+enum Access {
+    Admin,
+    Manager,
+    User,
+    Guest,
+}
+
+fn main() {
+    // secret file: admins only
+    let access_level = Access::Guest;
+    let can_access_file = match access_level {
+        Access::Admin => true,
+        _=> false,
+    };
+
+    println!("can access: {:?}", can_access_file);
 }

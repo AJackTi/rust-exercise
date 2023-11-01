@@ -42,17 +42,35 @@
 //     }
 // }
 
-struct GroceryItem {
-    stock: i32,
-    price: f64,
-}
+// struct GroceryItem {
+//     stock: i32,
+//     price: f64,
+// }
+
+// fn main() {
+//     let cereal = GroceryItem {
+//         stock: 10,
+//         price: 2.99,
+//     };
+
+//     println!("stock {:?}", cereal.stock);
+//     println!("price {:?}", cereal.price);
+// }
 
 fn main() {
-    let cereal = GroceryItem {
-        stock: 10,
-        price: 2.99,
-    };
+    let coord = (2,3);
+    println!("{:?} {:?}", coord.0, coord.1);
+    
+    let (x,y) = (2,3);
+    println!("{:?} {:?}", x, y);
 
-    println!("stock {:?}", cereal.stock);
-    println!("price {:?}", cereal.price);
+    let (name, age) = ("Emma", 20);
+    println!("{:?} {:?}", name, age);
+
+    let favorites = ("red", 14, "TX", "pizza", "TV SHOW", "home");
+
+    let state = favorites.2;
+    let place = favorites.5;
+    print!("state: {:?}", state);
+    print!("place: {:?}", place);
 }

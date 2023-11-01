@@ -19,10 +19,25 @@
 //     println!("done");
 // }
 
+// fn main() {
+//     let mut i = 1;
+//     while i <=3 {
+//         println!("{:?}", i);
+//         i += 1;
+//     }
+// }
+
+enum Direction {
+    Left,
+    Right,
+    Up
+}
+
 fn main() {
-    let mut i = 1;
-    while i <=3 {
-        println!("{:?}", i);
-        i += 1;
+    let go = Direction::Left;
+    match go {
+        Direction::Left => println!("go left"),
+        Direction::Right => println!("go right"),
+        Direction::Up => println!("go up"),
     }
 }

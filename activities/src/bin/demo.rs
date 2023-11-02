@@ -75,20 +75,43 @@
 //     print!("place: {:?}", place);
 // }
 
-enum Access {
-    Admin,
-    Manager,
-    User,
-    Guest,
+// enum Access {
+//     Admin,
+//     Manager,
+//     User,
+//     Guest,
+// }
+
+// fn main() {
+//     // secret file: admins only
+//     let access_level = Access::Guest;
+//     let can_access_file = match access_level {
+//         Access::Admin => true,
+//         _=> false,
+//     };
+
+//     println!("can access: {:?}", can_access_file);
+// }
+
+struct Book {
+    pages: i32,
+    rating: i32,
+}
+
+fn display_page_count(book: &Book) {
+    println!("pages = {:?}", book.pages);
+}
+
+fn display_rating(book: &Book) {
+    println!("rating = {:?}", book.rating);
 }
 
 fn main() {
-    // secret file: admins only
-    let access_level = Access::Guest;
-    let can_access_file = match access_level {
-        Access::Admin => true,
-        _=> false,
+    let book = Book {
+        pages:5,
+        rating: 9,
     };
 
-    println!("can access: {:?}", can_access_file);
+    display_page_count(&book);
+    display_rating(&book);
 }

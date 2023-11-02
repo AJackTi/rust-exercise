@@ -172,29 +172,63 @@
 //     }
 // }
 
-struct LineItem {
-    name: String,
-    count: i32,
+// struct LineItem {
+//     name: String,
+//     count: i32,
+// }
+
+// fn print_name(name: &str) {
+//     println!("name: {:?}", name);
+// }
+
+// fn main() {
+//     let receipt = vec![
+//         LineItem {
+//             name:"cereal".to_owned(),
+//             count: 1
+//         }, 
+//         LineItem {
+//             name: String::from("fruit"),
+//             count: 3
+//         }
+//     ];
+
+//     for item in receipt {
+//         print_name(&item.name);
+//         println!("count: {:?}", item.count);
+//     }
+// }
+
+#[derive(Debug, Clone, Copy)]
+enum Position {
+    Manager,
+    Supervisor,
+    Worker
 }
 
-fn print_name(name: &str) {
-    println!("name: {:?}", name);
+#[derive(Debug, Clone, Copy)]
+struct Employee {
+    position: Position,
+    work_hours: i64,
+}
+
+fn print_employee(emp: Employee) {
+    println!("{:?}", emp);
 }
 
 fn main() {
-    let receipt = vec![
-        LineItem {
-            name:"cereal".to_owned(),
-            count: 1
-        }, 
-        LineItem {
-            name: String::from("fruit"),
-            count: 3
-        }
-    ];
+    let me = Employee {
+        position: Position::Worker,
+        work_hours: 40
+    };
 
-    for item in receipt {
-        print_name(&item.name);
-        println!("count: {:?}", item.count);
-    }
+    // match me.position {
+    //     Position::Manager => println!("manager"),
+    //     Position::Supervisor => println!("supervisor"),
+    //     Position::Worker => println!("worker"),
+    // }
+    println!("{:?}", me.position);
+    println!("{:?}", me);
+    print_employee(me);
+    print_employee(me);
 }

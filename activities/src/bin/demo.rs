@@ -93,25 +93,64 @@
 //     println!("can access: {:?}", can_access_file);
 // }
 
-struct Book {
-    pages: i32,
-    rating: i32,
+// struct Book {
+//     pages: i32,
+//     rating: i32,
+// }
+
+// fn display_page_count(book: &Book) {
+//     println!("pages = {:?}", book.pages);
+// }
+
+// fn display_rating(book: &Book) {
+//     println!("rating = {:?}", book.rating);
+// }
+
+// fn main() {
+//     let book = Book {
+//         pages:5,
+//         rating: 9,
+//     };
+
+//     display_page_count(&book);
+//     display_rating(&book);
+// }
+
+struct Temperature {
+    degrees_f: f64,
 }
 
-fn display_page_count(book: &Book) {
-    println!("pages = {:?}", book.pages);
-}
 
-fn display_rating(book: &Book) {
-    println!("rating = {:?}", book.rating);
+
+impl Temperature {
+    fn freezing() -> Self {
+        Self {
+            degrees_f: 32.0
+        }
+    }
+
+    fn boiling() -> Self {
+        Self {
+            degrees_f: 212.0
+        }
+    }
+
+    fn show_temp(&self) {
+        println!("{:?} degrees F", self.degrees_f);
+    }
 }
 
 fn main() {
-    let book = Book {
-        pages:5,
-        rating: 9,
+    let hot = Temperature {
+        degrees_f: 99.9
     };
 
-    display_page_count(&book);
-    display_rating(&book);
+    hot.show_temp();
+    // Temperature::show_temp(&hot);
+
+    let cold = Temperature::freezing();
+    cold.show_temp();
+
+    let boiling = Temperature::boiling();
+    boiling.show_temp()
 }

@@ -420,25 +420,64 @@
 //         .map(|len| len * 2);
 // }
 
+// fn main() {
+//     let a: Option<i32> = Some(1);
+//     dbg!(a);
+
+//     let a_is_some = a.is_some();
+//     dbg!(a_is_some);
+
+//     let a_is_none = a.is_none();
+//     dbg!(a_is_none);
+
+//     let a_mapped = a.map(|num| num + 1);
+//     dbg!(a_mapped);
+
+//     let a_filtered = a.filter(|num| num == &1);
+//     dbg!(a_filtered);
+
+//     let a_or_else = a.or_else(|| Some(5));
+//     dbg!(a_or_else);
+
+//     let unwrapped = a.unwrap_or_else(|| 0);
+//     dbg!(unwrapped);
+// }
+
 fn main() {
-    let a: Option<i32> = Some(1);
-    dbg!(a);
+    let numbers = vec![1, 2, 3, 4, 5];
 
-    let a_is_some = a.is_some();
-    dbg!(a_is_some);
+    let mut plus_one = vec![];
+    for num in &numbers {
+        plus_one.push(num + 1);
+    }
 
-    let a_is_none = a.is_none();
-    dbg!(a_is_none);
+    let plus_one: Vec<_> = numbers
+        .iter()
+        .map(|num| num + 1)
+        .collect();
+    dbg!(plus_one);
 
-    let a_mapped = a.map(|num| num + 1);
-    dbg!(a_mapped);
+    let new_numbers: Vec<_> = numbers
+        .iter()
+        .filter(|num| num <= &&3)
+        .collect();
+    dbg!(new_numbers);
 
-    let a_filtered = a.filter(|num| num == &1);
-    dbg!(a_filtered);
+    let find_me: Option<&i32> = numbers.iter().find(|num| num == &&40);
+    dbg!(find_me);
 
-    let a_or_else = a.or_else(|| Some(5));
-    dbg!(a_or_else);
+    let count = numbers.iter().count();
+    dbg!(count);
 
-    let unwrapped = a.unwrap_or_else(|| 0);
-    dbg!(unwrapped);
+    let last = numbers.iter().last();
+    dbg!(last);
+
+    let min = numbers.iter().min();
+    dbg!(min);
+
+    let max = numbers.iter().max();
+    dbg!(max);
+
+    let take: Vec<_> = numbers.iter().take(3).collect();
+    dbg!(take);
 }

@@ -508,29 +508,45 @@
 //     }
 // }
 
-enum Color {
-    Red,
-    Blue,
-    Green,
-}
+// enum Color {
+//     Red,
+//     Blue,
+//     Green,
+// }
+
+// fn main() {
+//     let maybe_user = Some("Jerry");
+//     match maybe_user {
+//         Some(user) => println!("user = {:?}", user),
+//         None => println!("no user"),
+//     }
+
+//     if let Some(user) = maybe_user {
+//         println!("user = {}", user);
+//     } else {
+//         println!("no user");
+//     }
+
+//     let red = Color::Red;
+//     if let Color::Red = red {
+//         println!("its red");
+//     } else {
+//         println!("its not red");
+//     }
+// }
 
 fn main() {
-    let maybe_user = Some("Jerry");
-    match maybe_user {
-        Some(user) => println!("user = {:?}", user),
-        None => println!("no user"),
+    let mut data = Some(3);
+    while let Some(i) = data {
+        println!("loop");
+        data = None;
     }
 
-    if let Some(user) = maybe_user {
-        println!("user = {}", user);
-    } else {
-        println!("no user");
+    let numbers = vec![1, 2, 3];
+    let mut numebr_iter = numbers.iter();
+    while let Some(num) = numebr_iter.next() {
+        println!("num = {:?}", num);
     }
 
-    let red = Color::Red;
-    if let Color::Red = red {
-        println!("its red");
-    } else {
-        println!("its not red");
-    }
+    println!("done");
 }

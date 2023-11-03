@@ -482,28 +482,55 @@
 //     dbg!(take);
 // }
 
+// fn main() {
+//     let range = 1..=3;
+//     for num in range {
+//         println!("num = {}", num);
+//     }
+
+//     println!("");
+
+//     let range = 1..4;
+//     for num in range {
+//         println!("num = {}", num);
+//     }
+
+//     println!("");
+
+//     for num in 1..4 {
+//         println!("{}", num);
+//     }
+
+//     println!("");
+
+//     for ch in 'a'..='f' {
+//         println!("{}", ch);
+//     }
+// }
+
+enum Color {
+    Red,
+    Blue,
+    Green,
+}
+
 fn main() {
-    let range = 1..=3;
-    for num in range {
-        println!("num = {}", num);
+    let maybe_user = Some("Jerry");
+    match maybe_user {
+        Some(user) => println!("user = {:?}", user),
+        None => println!("no user"),
     }
 
-    println!("");
-
-    let range = 1..4;
-    for num in range {
-        println!("num = {}", num);
+    if let Some(user) = maybe_user {
+        println!("user = {}", user);
+    } else {
+        println!("no user");
     }
 
-    println!("");
-
-    for num in 1..4 {
-        println!("{}", num);
-    }
-
-    println!("");
-
-    for ch in 'a'..='f' {
-        println!("{}", ch);
+    let red = Color::Red;
+    if let Color::Red = red {
+        println!("its red");
+    } else {
+        println!("its not red");
     }
 }

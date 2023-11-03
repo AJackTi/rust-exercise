@@ -60,7 +60,7 @@
 // fn main() {
 //     let coord = (2,3);
 //     println!("{:?} {:?}", coord.0, coord.1);
-    
+
 //     let (x,y) = (2,3);
 //     println!("{:?} {:?}", x, y);
 
@@ -119,8 +119,6 @@
 // struct Temperature {
 //     degrees_f: f64,
 // }
-
-
 
 // impl Temperature {
 //     fn freezing() -> Self {
@@ -186,7 +184,7 @@
 //         LineItem {
 //             name:"cereal".to_owned(),
 //             count: 1
-//         }, 
+//         },
 //         LineItem {
 //             name: String::from("fruit"),
 //             count: 3
@@ -199,36 +197,70 @@
 //     }
 // }
 
-#[derive(Debug, Clone, Copy)]
-enum Position {
-    Manager,
-    Supervisor,
-    Worker
+// #[derive(Debug, Clone, Copy)]
+// enum Position {
+//     Manager,
+//     Supervisor,
+//     Worker
+// }
+
+// #[derive(Debug, Clone, Copy)]
+// struct Employee {
+//     position: Position,
+//     work_hours: i64,
+// }
+
+// fn print_employee(emp: Employee) {
+//     println!("{:?}", emp);
+// }
+
+// fn main() {
+//     let me = Employee {
+//         position: Position::Worker,
+//         work_hours: 40
+//     };
+
+//     // match me.position {
+//     //     Position::Manager => println!("manager"),
+//     //     Position::Supervisor => println!("supervisor"),
+//     //     Position::Worker => println!("worker"),
+//     // }
+//     println!("{:?}", me.position);
+//     println!("{:?}", me);
+//     print_employee(me);
+//     print_employee(me);
+// }
+
+enum Discount {
+    Percent(i32),
+    Flat(i32),
 }
 
-#[derive(Debug, Clone, Copy)]
-struct Employee {
-    position: Position,
-    work_hours: i64,
-}
-
-fn print_employee(emp: Employee) {
-    println!("{:?}", emp);
+struct Ticket {
+    event: String,
+    price: i32,
 }
 
 fn main() {
-    let me = Employee {
-        position: Position::Worker,
-        work_hours: 40
-    };
+    let n = 3;
+    match n {
+        3 => println!("three"),
+        other => println!("number: {:?}", other),
+    }
 
-    // match me.position {
-    //     Position::Manager => println!("manager"),
-    //     Position::Supervisor => println!("supervisor"),
-    //     Position::Worker => println!("worker"),
-    // }
-    println!("{:?}", me.position);
-    println!("{:?}", me);
-    print_employee(me);
-    print_employee(me);
+    let flat = Discount::Flat(2);
+    match flat {
+        Discount::Flat(2) => println!("flat 2"),
+        Discount::Flat(amount) => println!("flat discount of {:?}", amount),
+        _ => (),
+    }
+
+    let concert = Ticket {
+        event: "concert".to_owned(),
+        price: 50,
+    };
+    match concert {
+        Ticket { price: 50, event } => println!("event @ 50 = {:?}", event),
+        Ticket { price, .. } => println!("price = {:?}", price),
+    }
 }

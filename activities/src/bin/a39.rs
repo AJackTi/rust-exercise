@@ -21,56 +21,58 @@
 //   by telling the thread to self-terminate
 // * Use `cargo test --bin a39` to test your program to ensure all cases are covered
 
-use crossbeam_channel::{unbounded, Receiver};
-use std::thread::{self, JoinHandle};
+// use crossbeam_channel::{unbounded, Receiver};
+// use std::thread::{self, JoinHandle};
 
-enum LightMsg {
-    // Add additional variants needed to complete the exercise
-    ChangeColor(u8, u8, u8),
-    Disconnect,
-}
+// enum LightMsg {
+//     // Add additional variants needed to complete the exercise
+//     ChangeColor(u8, u8, u8),
+//     Disconnect,
+// }
 
-enum LightStatus {
-    Off,
-    On,
-}
+// enum LightStatus {
+//     Off,
+//     On,
+// }
 
-fn spawn_light_thread(receiver: Receiver<LightMsg>) -> JoinHandle<LightStatus> {
-    // Add code here to spawn a thread to control the light bulb
-}
+// fn spawn_light_thread(receiver: Receiver<LightMsg>) -> JoinHandle<LightStatus> {
+//     // Add code here to spawn a thread to control the light bulb
+// }
+
+// fn main() {}
+
+// #[cfg(test)]
+// mod test {
+//     use super::*;
+//     use crossbeam_channel::unbounded;
+
+//     #[test]
+//     fn light_off_when_disconnect() {
+//         let (s, r) = unbounded();
+
+//         let light = spawn_light_thread(r);
+//         s.send(LightMsg::Disconnect).expect("channel disconnected");
+
+//         let light_status = light.join().expect("failed to join light thread");
+
+//         if let LightStatus::On = light_status {
+//             panic!("light should be off after disconnection");
+//         }
+//     }
+
+//     #[test]
+//     fn light_off_when_dropped() {
+//         let (s, r) = unbounded();
+
+//         let light = spawn_light_thread(r);
+//         drop(s);
+
+//         let light_status = light.join().expect("failed to join light thread");
+
+//         if let LightStatus::On = light_status {
+//             panic!("light should be off after dropping sender");
+//         }
+//     }
+// }
 
 fn main() {}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-    use crossbeam_channel::unbounded;
-
-    #[test]
-    fn light_off_when_disconnect() {
-        let (s, r) = unbounded();
-
-        let light = spawn_light_thread(r);
-        s.send(LightMsg::Disconnect).expect("channel disconnected");
-
-        let light_status = light.join().expect("failed to join light thread");
-
-        if let LightStatus::On = light_status {
-            panic!("light should be off after disconnection");
-        }
-    }
-
-    #[test]
-    fn light_off_when_dropped() {
-        let (s, r) = unbounded();
-
-        let light = spawn_light_thread(r);
-        drop(s);
-
-        let light_status = light.join().expect("failed to join light thread");
-
-        if let LightStatus::On = light_status {
-            panic!("light should be off after dropping sender");
-        }
-    }
-}

@@ -399,23 +399,46 @@
 //     println!("sum = {}", sum);
 // }
 
-fn maybe_num() -> Option<i32> {
-    None
-}
+// fn maybe_num() -> Option<i32> {
+//     None
+// }
 
-fn maybe_word() -> Option<String> {
-    None
-}
+// fn maybe_word() -> Option<String> {
+//     None
+// }
+
+// fn main() {
+//     // let plus_one = match maybe_num() {
+//     //     Some(num) => Some(num + 1),
+//     //     None => None,
+//     // };
+
+//     // let plus_one = maybe_num().map(|num| num + 1);
+
+//     let word_length = maybe_word()
+//         .map(|word| word.len())
+//         .map(|len| len * 2);
+// }
 
 fn main() {
-    // let plus_one = match maybe_num() {
-    //     Some(num) => Some(num + 1),
-    //     None => None,
-    // };
+    let a: Option<i32> = Some(1);
+    dbg!(a);
 
-    // let plus_one = maybe_num().map(|num| num + 1);
+    let a_is_some = a.is_some();
+    dbg!(a_is_some);
 
-    let word_length = maybe_word()
-        .map(|word| word.len())
-        .map(|len| len * 2);
+    let a_is_none = a.is_none();
+    dbg!(a_is_none);
+
+    let a_mapped = a.map(|num| num + 1);
+    dbg!(a_mapped);
+
+    let a_filtered = a.filter(|num| num == &1);
+    dbg!(a_filtered);
+
+    let a_or_else = a.or_else(|| Some(5));
+    dbg!(a_or_else);
+
+    let unwrapped = a.unwrap_or_else(|| 0);
+    dbg!(unwrapped);
 }

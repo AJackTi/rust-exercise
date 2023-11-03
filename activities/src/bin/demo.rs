@@ -294,20 +294,28 @@
 //     }
 // }
 
-enum Color {
-    Red,
-    Blue,
-}
+// enum Color {
+//     Red,
+//     Blue,
+// }
 
-/// A piece of mail
-struct Mail {
-    /// The destination address.
-    address: String,
-}
+// /// A piece of mail
+// struct Mail {
+//     /// The destination address.
+//     address: String,
+// }
 
-/// Adds two numbers together.
-fn add(a: i32, b: i32) -> i32 {
-    a + b
-}
+// /// Adds two numbers together.
+// fn add(a: i32, b: i32) -> i32 {
+//     a + b
+// }
 
-fn main() {}
+// fn main() {}
+
+fn main() {
+    let numbers = vec![1, 2, 3];
+    match numbers.is_empty() {
+        true => println!("no numbers"),
+        false => println!("has numbers"),
+    }
+}

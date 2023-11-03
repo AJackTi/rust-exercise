@@ -443,41 +443,67 @@
 //     dbg!(unwrapped);
 // }
 
-fn main() {
-    let numbers = vec![1, 2, 3, 4, 5];
+// fn main() {
+//     let numbers = vec![1, 2, 3, 4, 5];
 
-    let mut plus_one = vec![];
-    for num in &numbers {
-        plus_one.push(num + 1);
+//     let mut plus_one = vec![];
+//     for num in &numbers {
+//         plus_one.push(num + 1);
+//     }
+
+//     let plus_one: Vec<_> = numbers
+//         .iter()
+//         .map(|num| num + 1)
+//         .collect();
+//     dbg!(plus_one);
+
+//     let new_numbers: Vec<_> = numbers
+//         .iter()
+//         .filter(|num| num <= &&3)
+//         .collect();
+//     dbg!(new_numbers);
+
+//     let find_me: Option<&i32> = numbers.iter().find(|num| num == &&40);
+//     dbg!(find_me);
+
+//     let count = numbers.iter().count();
+//     dbg!(count);
+
+//     let last = numbers.iter().last();
+//     dbg!(last);
+
+//     let min = numbers.iter().min();
+//     dbg!(min);
+
+//     let max = numbers.iter().max();
+//     dbg!(max);
+
+//     let take: Vec<_> = numbers.iter().take(3).collect();
+//     dbg!(take);
+// }
+
+fn main() {
+    let range = 1..=3;
+    for num in range {
+        println!("num = {}", num);
     }
 
-    let plus_one: Vec<_> = numbers
-        .iter()
-        .map(|num| num + 1)
-        .collect();
-    dbg!(plus_one);
+    println!("");
 
-    let new_numbers: Vec<_> = numbers
-        .iter()
-        .filter(|num| num <= &&3)
-        .collect();
-    dbg!(new_numbers);
+    let range = 1..4;
+    for num in range {
+        println!("num = {}", num);
+    }
 
-    let find_me: Option<&i32> = numbers.iter().find(|num| num == &&40);
-    dbg!(find_me);
+    println!("");
 
-    let count = numbers.iter().count();
-    dbg!(count);
+    for num in 1..4 {
+        println!("{}", num);
+    }
 
-    let last = numbers.iter().last();
-    dbg!(last);
+    println!("");
 
-    let min = numbers.iter().min();
-    dbg!(min);
-
-    let max = numbers.iter().max();
-    dbg!(max);
-
-    let take: Vec<_> = numbers.iter().take(3).collect();
-    dbg!(take);
+    for ch in 'a'..='f' {
+        println!("{}", ch);
+    }
 }

@@ -379,21 +379,43 @@
 //         println!("number: {}, content: is {:?}", locker_number, content);
 //     }
 // }
-fn add(a: i32, b: i32) -> i32 {
-    a + b
+
+// fn add(a: i32, b: i32) -> i32 {
+//     a + b
+// }
+
+// fn main() {
+//     let sum = add(1, 2);
+//     println!("sum = {}", sum);
+
+//     let add = |a: i32, b: i32| -> i32 { a + b };
+
+//     let sum = add(1, 3);
+//     println!("sum = {}", sum);
+
+//     let add = |a, b| a + b;
+
+//     let sum = add(1, 4);
+//     println!("sum = {}", sum);
+// }
+
+fn maybe_num() -> Option<i32> {
+    None
+}
+
+fn maybe_word() -> Option<String> {
+    None
 }
 
 fn main() {
-    let sum = add(1, 2);
-    println!("sum = {}", sum);
+    // let plus_one = match maybe_num() {
+    //     Some(num) => Some(num + 1),
+    //     None => None,
+    // };
 
-    let add = |a: i32, b: i32| -> i32 { a + b };
+    // let plus_one = maybe_num().map(|num| num + 1);
 
-    let sum = add(1, 3);
-    println!("sum = {}", sum);
-
-    let add = |a, b| a + b;
-
-    let sum = add(1, 4);
-    println!("sum = {}", sum);
+    let word_length = maybe_word()
+        .map(|word| word.len())
+        .map(|len| len * 2);
 }

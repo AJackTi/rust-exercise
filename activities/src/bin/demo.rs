@@ -362,20 +362,38 @@
 //     // println!("choice = {:?}", choice);
 // }
 
-use std::collections::HashMap;
+// use std::collections::HashMap;
 
-#[derive(Debug)]
-struct Contents {
-    content: String,
+// #[derive(Debug)]
+// struct Contents {
+//     content: String,
+// }
+
+// fn main() {
+//     let mut lockers = HashMap::new();
+//     lockers.insert(1, Contents { content: "stuff".to_owned() });
+//     lockers.insert(2, Contents { content: "shift".to_owned() });
+//     lockers.insert(3, Contents { content: "gym shorts".to_owned() });
+
+//     for (locker_number, content) in lockers.iter() {
+//         println!("number: {}, content: is {:?}", locker_number, content);
+//     }
+// }
+fn add(a: i32, b: i32) -> i32 {
+    a + b
 }
 
 fn main() {
-    let mut lockers = HashMap::new();
-    lockers.insert(1, Contents { content: "stuff".to_owned() });
-    lockers.insert(2, Contents { content: "shift".to_owned() });
-    lockers.insert(3, Contents { content: "gym shorts".to_owned() });
+    let sum = add(1, 2);
+    println!("sum = {}", sum);
 
-    for (locker_number, content) in lockers.iter() {
-        println!("number: {}, content: is {:?}", locker_number, content);
-    }
+    let add = |a: i32, b: i32| -> i32 { a + b };
+
+    let sum = add(1, 3);
+    println!("sum = {}", sum);
+
+    let add = |a, b| a + b;
+
+    let sum = add(1, 4);
+    println!("sum = {}", sum);
 }

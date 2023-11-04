@@ -38,6 +38,12 @@
 //     a
 // }
 
+fn sort_username<T: AsRef<str>>(username: &mut Vec<T>) {
+    username.sort_by_cached_key(|x| { x.as_ref().to_lowercase() });
+
+    // username.sort_by(|x, y| x.as_ref().to_lowercase().cmp(&y.as_ref().to_lowercase()))
+}
+
 fn main() {
     // let answer = median(vec![1.0, 2.0, 5.0, 6.0]);
     // dbg!(answer);
@@ -47,4 +53,8 @@ fn main() {
 
     // let answer = unique(vec![1, 2, 3, 4, 4, 5, 5]);
     // dbg!(answer);
+
+    let mut users = vec!["Todd", "Amy", "Jennifer", "Tommy"];
+    sort_username(&mut users);
+    dbg!(users);
 }

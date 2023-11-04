@@ -553,29 +553,47 @@
 
 // use crate::greet::hello;
 
-mod greet {
-    pub fn hello() {
-        println!("hello");
-    }
+// mod greet {
+//     pub fn hello() {
+//         println!("hello");
+//     }
 
-    pub(crate) fn goodbye() {
-        println!("goodbye");
-    }
+//     pub(crate) fn goodbye() {
+//         println!("goodbye");
+//     }
+// }
+
+// mod math {
+//     pub fn add(a: i32, b: i32) -> i32 {
+//         a + b
+//     }
+//     fn sub(a: i32, b: i32) -> i32 {
+//         a * b
+//     }
+// }
+
+// fn main() {
+//     use greet::*;
+//     hello();
+//     goodbye();
+
+//     math::add(1, 2);
+// }
+
+fn all_caps(word: &str) -> String {
+    word.to_uppercase()
 }
 
-mod math {
-    pub fn add(a: i32, b: i32) -> i32 {
-        a + b
-    }
-    fn sub(a: i32, b: i32) -> i32 {
-        a * b
-    }
-}
+fn main() {}
 
-fn main() {
-    use greet::*;
-    hello();
-    goodbye();
+#[cfg(test)]
+mod test {
+    use crate::all_caps;
 
-    math::add(1, 2);
+    #[test]
+    fn check_all_caps() {
+        let result = all_caps("hello");
+        let expected = String::from("HELLO");
+        assert_eq!(result, expected, "string should be all uppercase");
+    }
 }

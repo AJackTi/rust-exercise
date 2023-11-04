@@ -1,5 +1,5 @@
-// fn main() {
 //     let age = 15;
+// fn main() {
 //     if age >= 21 {
 //         println!("valid age")
 //     } else {
@@ -535,18 +535,47 @@
 //     }
 // }
 
+// fn main() {
+//     let mut data = Some(3);
+//     while let Some(i) = data {
+//         println!("loop");
+//         data = None;
+//     }
+
+//     let numbers = vec![1, 2, 3];
+//     let mut numebr_iter = numbers.iter();
+//     while let Some(num) = numebr_iter.next() {
+//         println!("num = {:?}", num);
+//     }
+
+//     println!("done");
+// }
+
+// use crate::greet::hello;
+
+mod greet {
+    pub fn hello() {
+        println!("hello");
+    }
+
+    pub(crate) fn goodbye() {
+        println!("goodbye");
+    }
+}
+
+mod math {
+    pub fn add(a: i32, b: i32) -> i32 {
+        a + b
+    }
+    fn sub(a: i32, b: i32) -> i32 {
+        a * b
+    }
+}
+
 fn main() {
-    let mut data = Some(3);
-    while let Some(i) = data {
-        println!("loop");
-        data = None;
-    }
+    use greet::*;
+    hello();
+    goodbye();
 
-    let numbers = vec![1, 2, 3];
-    let mut numebr_iter = numbers.iter();
-    while let Some(num) = numebr_iter.next() {
-        println!("num = {:?}", num);
-    }
-
-    println!("done");
+    math::add(1, 2);
 }

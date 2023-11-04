@@ -15,33 +15,38 @@
 // * After moving the functions into modules, try running
 //   `cargo check --bin a26b` to get a listing of required code changes
 
-fn trim(msg: &str) -> &str {
-    msg.trim()
-}
+mod msg {
+    pub fn trim(msg: &str) -> &str {
+        msg.trim()
+    }
 
-fn capitalize(msg: &str) -> std::borrow::Cow<'_, str> {
-    if let Some(letter) = msg.get(0..1) {
-        format!("{}{}", letter.to_uppercase(), &msg[1..msg.len()]).into()
-    } else {
-        msg.into()
+    pub fn capitalize(msg: &str) -> std::borrow::Cow<'_, str> {
+        if let Some(letter) = msg.get(0..1) {
+            format!("{}{}", letter.to_uppercase(), &msg[1..msg.len()]).into()
+        } else {
+            msg.into()
+        }
+    }
+
+    pub fn exciting(msg: &str) -> String {
+        format!("{}!", msg)
+    }
+}
+mod math {
+    pub fn add(lhs: isize, rhs: isize) -> isize {
+        lhs + rhs
+    }
+    pub fn sub(lhs: isize, rhs: isize) -> isize {
+        lhs - rhs
+    }
+    pub fn mul(lhs: isize, rhs: isize) -> isize {
+        lhs * rhs
     }
 }
 
-fn exciting(msg: &str) -> String {
-    format!("{}!", msg)
-}
-
-fn add(lhs: isize, rhs: isize) -> isize {
-    lhs + rhs
-}
-fn sub(lhs: isize, rhs: isize) -> isize {
-    lhs - rhs
-}
-fn mul(lhs: isize, rhs: isize) -> isize {
-    lhs * rhs
-}
-
 fn main() {
+    use math::*;
+
     // Part 1: math functions
     let result = {
         let two_plus_two = add(2, 2);
@@ -53,19 +58,29 @@ fn main() {
     assert_eq!(result, 9);
     println!("(2 + 2 - 1) * 3 = {}", result);
 
-    // Part 2: string functions
-    let hello = {
-        let msg = "hello ";
-        let msg = trim(msg);
-        capitalize(msg)
-    };
-    let world = {
-        let msg = "world";
-        exciting(msg)
-    };
-    let msg = format!("{}, {}", hello, world);
+    {
+        use msg::{ trim, capitalize, exciting };
+        // Part 2: string functions
+        let hello = {
+            let msg = "hello ";
+            let msg = trim(msg);
+            capitalize(msg)
+        };
+        let world = {
+            let msg = "world";
+            exciting(msg)
+        };
+        let msg = format!("{}, {}", hello, world);
 
-    // Ensure we have a correct result.
-    assert_eq!(&msg, "Hello, world!");
-    println!("{}", msg);
+        // Ensure we have a correct result.
+        assert_eq!(&msg, "Hello, world!");
+        println!("{}", msg);
+    }
+
+    // Error
+    // let hello = {
+    //     let msg = "hello ";
+    //     let msg = trim(msg);
+    //     capitalize(msg)
+    // };
 }

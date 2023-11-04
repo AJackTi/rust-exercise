@@ -1,29 +1,29 @@
-fn median(mut a: Vec<f32>) -> Option<f32> {
-    if a.is_empty() {
-        return None;
-    }
+// fn median(mut a: Vec<f32>) -> Option<f32> {
+//     if a.is_empty() {
+//         return None;
+//     }
 
-    a.sort_by(|x, y| { x.partial_cmp(y).unwrap() });
+//     a.sort_by(|x, y| { x.partial_cmp(y).unwrap() });
 
-    let n_elements = a.len();
-    let middle = n_elements / 2;
-    let a_is_even = n_elements % 2 == 0;
+//     let n_elements = a.len();
+//     let middle = n_elements / 2;
+//     let a_is_even = n_elements % 2 == 0;
 
-    let med = if a_is_even { (a[middle] + a[middle - 1]) / 2.0 } else { a[middle] };
+//     let med = if a_is_even { (a[middle] + a[middle - 1]) / 2.0 } else { a[middle] };
 
-    Some(med)
-}
+//     Some(med)
+// }
 
 // fn unique(mut a: Vec<i32>) -> Vec<i32> {
-//     // let mut tmp = Vec::new();
+// let mut tmp = Vec::new();
 
-//     // for elem in a {
-//     //     if tmp.contains(&elem) {
-//     //         continue;
-//     //     }
-//     //     tmp.push(elem);
-//     // }
-//     // tmp
+// for elem in a {
+//     if tmp.contains(&elem) {
+//         continue;
+//     }
+//     tmp.push(elem);
+// }
+// tmp
 // }
 
 // fn unique(mut a: Vec<i32>) -> Vec<i32> {

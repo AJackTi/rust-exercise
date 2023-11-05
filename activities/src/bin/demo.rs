@@ -623,29 +623,51 @@
 //     }
 // }
 
-trait Fall {
-    fn hit_ground(&self);
+// trait Fall {
+//     fn hit_ground(&self);
+// }
+
+// struct Vase;
+// impl Fall for Vase {
+//     fn hit_ground(&self) {
+//         println!("the vase broke!");
+//     }
+// }
+
+// struct Cat;
+// impl Fall for Cat {
+//     fn hit_ground(&self) {
+//         println!("the cat usually walked away");
+//     }
+// }
+
+// fn fall(thing: impl Fall) {
+//     thing.hit_ground()
+// }
+
+// fn main() {
+//     fall(Vase {});
+//     fall(Cat {});
+// }
+
+#[derive(Debug)]
+struct Package {
+    weight: f64,
 }
 
-struct Vase;
-impl Fall for Vase {
-    fn hit_ground(&self) {
-        println!("the vase broke!");
+impl Package {
+    fn new(weight: f64) -> Self {
+        Self { weight }
     }
 }
 
-struct Cat;
-impl Fall for Cat {
-    fn hit_ground(&self) {
-        println!("the cat usually walked away");
+impl Default for Package {
+    fn default() -> Self {
+        Self { weight: 3.0 }
     }
-}
-
-fn fall(thing: impl Fall) {
-    thing.hit_ground()
 }
 
 fn main() {
-    fall(Vase {});
-    fall(Cat {});
+    let p = Package::default();
+    dbg!(p);
 }

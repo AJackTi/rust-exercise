@@ -29,7 +29,7 @@
 // * A vector is the easiest way to store the bills at stage 1, but a
 //   hashmap will be easier to work with at stages 2 and 3.
 
-use std::io;
+use std::{ io, collections::HashMap };
 
 #[derive(Debug, Clone)]
 pub struct Bill {
@@ -38,20 +38,24 @@ pub struct Bill {
 }
 
 pub struct Bills {
-    inner: Vec<Bill>,
+    inner: HashMap<String, Bill>,
 }
 
 impl Bills {
     fn new() -> Self {
-        Self { inner: vec![] }
+        Self { inner: HashMap::new() }
     }
 
     fn add(&mut self, bill: Bill) {
-        self.inner.push(bill)
+        self.inner.insert(bill.name.to_string(), bill);
     }
 
     fn get_all(&self) -> Vec<&Bill> {
-        self.inner.iter().collect()
+        self.inner.values().collect()
+    }
+
+    fn remove(&mut self, name: &str) -> bool {
+        self.inner.remove(name).is_some()
     }
 }
 
@@ -115,6 +119,26 @@ mod menu {
         println!("Bill added");
     }
 
+    pub fn remove_bill(bills: &mut Bills) {
+        for bill in bills.get_all() {
+            println!("{:?}", bill);
+        }
+
+        println!("Enter bill name to remove: ");
+
+        let name = match get_input() {
+            Some(name) => name,
+            None => {
+                return;
+            }
+        };
+        if bills.remove(&name) {
+            println!("bill removed");
+        } else {
+            println!("bill not found");
+        }
+    }
+
     pub fn view_bills(bills: &Bills) {
         for bill in bills.get_all() {
             println!("{:?}", bill);
@@ -125,6 +149,7 @@ mod menu {
 enum MainMenu {
     AddBill,
     ViewBill,
+    RemoveBill,
 }
 
 impl MainMenu {
@@ -141,6 +166,7 @@ impl MainMenu {
         println!(" == Bill Manager == ");
         println!("1. Add Bill");
         println!("2. View Bills");
+        println!("3. Remove bill");
         println!("");
         println!("Enter selection: ");
     }
@@ -155,6 +181,7 @@ fn main() {
         match MainMenu::from_str(input.as_str()) {
             Some(MainMenu::AddBill) => menu::add_bill(&mut bills),
             Some(MainMenu::ViewBill) => menu::view_bills(&bills),
+            Some(MainMenu::RemoveBill) => menu::remove_bill(&mut bills),
             None => {
                 return;
             }

@@ -598,27 +598,54 @@
 //     }
 // }
 
-use std::io;
+// use std::io;
 
-fn get_input() -> io::Result<String> {
-    let mut buffer = String::new();
-    io::stdin().read_line(&mut buffer)?;
-    Ok(buffer.trim().to_owned())
+// fn get_input() -> io::Result<String> {
+//     let mut buffer = String::new();
+//     io::stdin().read_line(&mut buffer)?;
+//     Ok(buffer.trim().to_owned())
+// }
+// fn main() {
+//     let mut all_input = vec![];
+//     let mut times_input = 0;
+//     while times_input < 2 {
+//         match get_input() {
+//             Ok(words) => {
+//                 all_input.push(words);
+//                 times_input += 1;
+//             }
+//             Err(err) => println!("error = {}", err),
+//         }
+//     }
+
+//     for input in all_input {
+//         println!("Original: {}, capitalized: {}", input, input.to_uppercase());
+//     }
+// }
+
+trait Fall {
+    fn hit_ground(&self);
 }
-fn main() {
-    let mut all_input = vec![];
-    let mut times_input = 0;
-    while times_input < 2 {
-        match get_input() {
-            Ok(words) => {
-                all_input.push(words);
-                times_input += 1;
-            }
-            Err(err) => println!("error = {}", err),
-        }
-    }
 
-    for input in all_input {
-        println!("Original: {}, capitalized: {}", input, input.to_uppercase());
+struct Vase;
+impl Fall for Vase {
+    fn hit_ground(&self) {
+        println!("the vase broke!");
     }
+}
+
+struct Cat;
+impl Fall for Cat {
+    fn hit_ground(&self) {
+        println!("the cat usually walked away");
+    }
+}
+
+fn fall(thing: impl Fall) {
+    thing.hit_ground()
+}
+
+fn main() {
+    fall(Vase {});
+    fall(Cat {});
 }

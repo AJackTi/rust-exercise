@@ -672,57 +672,100 @@
 //     dbg!(p);
 // }
 
-struct Dimensions {
-    width: f64,
-    height: f64,
-    depth: f64,
+// struct Dimensions {
+//     width: f64,
+//     height: f64,
+//     depth: f64,
+// }
+
+// struct ConveyorBelt<T: Convey> {
+//     pub items: Vec<T>,
+// }
+
+// impl<T: Convey> ConveyorBelt<T> {
+//     pub fn add(&mut self, item: T) {
+//         self.items.push(item);
+//     }
+// }
+
+// struct CarPart {
+//     width: f64,
+//     height: f64,
+//     depth: f64,
+//     weight: f64,
+//     part_number: String,
+// }
+
+// impl Default for CarPart {
+//     fn default() -> Self {
+//         Self { width: 5.0, height: 1.0, depth: 2.0, weight: 3.0, part_number: "abc".to_owned() }
+//     }
+// }
+
+// trait Convey {
+//     fn weight(&self) -> f64;
+//     fn dimensions(&self) -> Dimensions;
+// }
+
+// impl Convey for CarPart {
+//     fn weight(&self) -> f64 {
+//         self.weight
+//     }
+
+//     fn dimensions(&self) -> Dimensions {
+//         Dimensions { width: self.width, height: self.height, depth: self.depth }
+//     }
+// }
+
+// fn main() {
+//     // ok
+//     let mut belt: ConveyorBelt<CarPart> = ConveyorBelt { items: vec![] };
+//     belt.add(CarPart::default());
+
+//     // error
+//     // let mut belt = ConveyorBelt { items: vec![] };
+//     // belt.add(5)
+// }
+
+trait Sale {
+    fn amount(&self) -> f64;
 }
 
-struct ConveyorBelt<T: Convey> {
-    pub items: Vec<T>,
-}
-
-impl<T: Convey> ConveyorBelt<T> {
-    pub fn add(&mut self, item: T) {
-        self.items.push(item);
+struct FullSale(f64);
+impl Sale for FullSale {
+    fn amount(&self) -> f64 {
+        self.0
     }
 }
 
-struct CarPart {
-    width: f64,
-    height: f64,
-    depth: f64,
-    weight: f64,
-    part_number: String,
-}
-
-impl Default for CarPart {
-    fn default() -> Self {
-        Self { width: 5.0, height: 1.0, depth: 2.0, weight: 3.0, part_number: "abc".to_owned() }
+struct OneDollarOffCoupon(f64);
+impl Sale for OneDollarOffCoupon {
+    fn amount(&self) -> f64 {
+        self.0 - 1.0
     }
 }
 
-trait Convey {
-    fn weight(&self) -> f64;
-    fn dimensions(&self) -> Dimensions;
+struct TenPercentOffPromo(f64);
+impl Sale for TenPercentOffPromo {
+    fn amount(&self) -> f64 {
+        self.0 * 0.9
+    }
 }
 
-impl Convey for CarPart {
-    fn weight(&self) -> f64 {
-        self.weight
-    }
-
-    fn dimensions(&self) -> Dimensions {
-        Dimensions { width: self.width, height: self.height, depth: self.depth }
-    }
+fn calculate_revenue(sales: &Vec<Box<dyn Sale>>) -> f64 {
+    sales
+        .iter()
+        .map(|sale| sale.amount())
+        .sum()
 }
 
 fn main() {
-    // ok
-    let mut belt: ConveyorBelt<CarPart> = ConveyorBelt { items: vec![] };
-    belt.add(CarPart::default());
+    let price = 20.0;
+    let regular = Box::new(FullSale(price));
+    let coupon = Box::new(OneDollarOffCoupon(price));
+    let promo = Box::new(TenPercentOffPromo(price));
 
-    // error
-    // let mut belt = ConveyorBelt { items: vec![] };
-    // belt.add(5)
+    let sales: Vec<Box<dyn Sale>> = vec![regular, coupon, promo];
+    let revenue = calculate_revenue(&sales);
+    println!("revenue = {}", revenue);
 }

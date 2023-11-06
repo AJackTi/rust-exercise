@@ -650,24 +650,79 @@
 //     fall(Cat {});
 // }
 
-#[derive(Debug)]
-struct Package {
-    weight: f64,
+// #[derive(Debug)]
+// struct Package {
+//     weight: f64,
+// }
+
+// impl Package {
+//     fn new(weight: f64) -> Self {
+//         Self { weight }
+//     }
+// }
+
+// impl Default for Package {
+//     fn default() -> Self {
+//         Self { weight: 3.0 }
+//     }
+// }
+
+// fn main() {
+//     let p = Package::default();
+//     dbg!(p);
+// }
+
+struct Dimensions {
+    width: f64,
+    height: f64,
+    depth: f64,
 }
 
-impl Package {
-    fn new(weight: f64) -> Self {
-        Self { weight }
+struct ConveyorBelt<T: Convey> {
+    pub items: Vec<T>,
+}
+
+impl<T: Convey> ConveyorBelt<T> {
+    pub fn add(&mut self, item: T) {
+        self.items.push(item);
     }
 }
 
-impl Default for Package {
+struct CarPart {
+    width: f64,
+    height: f64,
+    depth: f64,
+    weight: f64,
+    part_number: String,
+}
+
+impl Default for CarPart {
     fn default() -> Self {
-        Self { weight: 3.0 }
+        Self { width: 5.0, height: 1.0, depth: 2.0, weight: 3.0, part_number: "abc".to_owned() }
+    }
+}
+
+trait Convey {
+    fn weight(&self) -> f64;
+    fn dimensions(&self) -> Dimensions;
+}
+
+impl Convey for CarPart {
+    fn weight(&self) -> f64 {
+        self.weight
+    }
+
+    fn dimensions(&self) -> Dimensions {
+        Dimensions { width: self.width, height: self.height, depth: self.depth }
     }
 }
 
 fn main() {
-    let p = Package::default();
-    dbg!(p);
+    // ok
+    let mut belt: ConveyorBelt<CarPart> = ConveyorBelt { items: vec![] };
+    belt.add(CarPart::default());
+
+    // error
+    // let mut belt = ConveyorBelt { items: vec![] };
+    // belt.add(5)
 }

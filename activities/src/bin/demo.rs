@@ -727,45 +727,124 @@
 //     // belt.add(5)
 // }
 
-trait Sale {
-    fn amount(&self) -> f64;
+// trait Sale {
+//     fn amount(&self) -> f64;
+// }
+
+// struct FullSale(f64);
+// impl Sale for FullSale {
+//     fn amount(&self) -> f64 {
+//         self.0
+//     }
+// }
+
+// struct OneDollarOffCoupon(f64);
+// impl Sale for OneDollarOffCoupon {
+//     fn amount(&self) -> f64 {
+//         self.0 - 1.0
+//     }
+// }
+
+// struct TenPercentOffPromo(f64);
+// impl Sale for TenPercentOffPromo {
+//     fn amount(&self) -> f64 {
+//         self.0 * 0.9
+//     }
+// }
+
+// fn calculate_revenue(sales: &Vec<Box<dyn Sale>>) -> f64 {
+//     sales
+//         .iter()
+//         .map(|sale| sale.amount())
+//         .sum()
+// }
+
+// fn main() {
+//     let price = 20.0;
+//     let regular = Box::new(FullSale(price));
+//     let coupon = Box::new(OneDollarOffCoupon(price));
+//     let promo = Box::new(TenPercentOffPromo(price));
+
+//     let sales: Vec<Box<dyn Sale>> = vec![regular, coupon, promo];
+//     let revenue = calculate_revenue(&sales);
+//     println!("revenue = {}", revenue);
+// }
+
+#[derive(Debug)]
+struct Cards {
+    inner: Vec<IdCard>,
 }
 
-struct FullSale(f64);
-impl Sale for FullSale {
-    fn amount(&self) -> f64 {
-        self.0
+#[derive(Debug, Eq, PartialEq, Ord, PartialOrd)]
+enum City {
+    Barland,
+    Bazopolis,
+    Fooville,
+}
+
+#[derive(Debug)]
+struct IdCard {
+    name: String,
+    age: u8,
+    city: City,
+}
+
+impl IdCard {
+    pub fn new(name: &str, age: u8, city: City) -> Self {
+        Self { name: name.to_string(), age, city }
     }
 }
 
-struct OneDollarOffCoupon(f64);
-impl Sale for OneDollarOffCoupon {
-    fn amount(&self) -> f64 {
-        self.0 - 1.0
+fn new_ids() -> Cards {
+    Cards {
+        inner: vec![
+            IdCard::new("Amy", 1, City::Fooville),
+            IdCard::new("Matt", 10, City::Barland),
+            IdCard::new("Bailee", 20, City::Barland),
+            IdCard::new("Anthony", 30, City::Bazopolis),
+            IdCard::new("Tina", 40, City::Bazopolis)
+        ],
     }
 }
 
-struct TenPercentOffPromo(f64);
-impl Sale for TenPercentOffPromo {
-    fn amount(&self) -> f64 {
-        self.0 * 0.9
-    }
+#[derive(Debug)]
+struct YoungPeople<'a> {
+    inner: Vec<&'a IdCard>,
 }
 
-fn calculate_revenue(sales: &Vec<Box<dyn Sale>>) -> f64 {
-    sales
-        .iter()
-        .map(|sale| sale.amount())
-        .sum()
+impl<'a> YoungPeople<'a> {
+    fn living_in_fooville(&self) -> Self {
+        Self {
+            inner: self.inner
+                .iter()
+                .filter(|id| id.city == City::Fooville)
+                .map(|id| *id)
+                .collect(),
+        }
+    }
 }
 
 fn main() {
-    let price = 20.0;
-    let regular = Box::new(FullSale(price));
-    let coupon = Box::new(OneDollarOffCoupon(price));
-    let promo = Box::new(TenPercentOffPromo(price));
+    let ids = new_ids();
+    let young = YoungPeople {
+        inner: ids.inner
+            .iter()
+            .filter(|id| id.age <= 20)
+            .collect(),
+    };
 
-    let sales: Vec<Box<dyn Sale>> = vec![regular, coupon, promo];
-    let revenue = calculate_revenue(&sales);
-    println!("revenue = {}", revenue);
+    println!("ids");
+    for id in ids.inner.iter() {
+        println!("{:?}", id);
+    }
+
+    println!("\nyoung");
+    for id in young.inner.iter() {
+        println!("{:?}", id);
+    }
+
+    println!("\nliving in fooville");
+    for id in young.living_in_fooville().inner.iter() {
+        println!("{:?}", id);
+    }
 }

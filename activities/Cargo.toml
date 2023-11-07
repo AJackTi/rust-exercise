@@ -11,3 +11,4 @@ path = "src/activitylib.rs"
 
 [dependencies]
 chrono = "0.4.31"
+thiserror = "1.0.50"

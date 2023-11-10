@@ -849,8 +849,16 @@
 //     }
 // }
 
-mod macros;
+// mod macros;
+
+// fn main() {
+//     welcome!()
+// }
+
+extern crate mylib;
+
+use mylib::demo;
 
 fn main() {
-    welcome!()
+    demo()
 }

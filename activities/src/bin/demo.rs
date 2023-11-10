@@ -855,10 +855,27 @@
 //     welcome!()
 // }
 
-extern crate mylib;
+// extern crate mylib;
 
-use mylib::demo;
+// use mylib::demo;
+
+// fn main() {
+//     demo()
+// }
 
 fn main() {
-    demo()
+    println!("highest: {}", highest(1, 2, 3));
+}
+
+fn highest(a: i32, b: u32, c: i8) -> i32 {
+    let mut res = a;
+    if (b as i32) > res {
+        res = b as i32;
+    }
+
+    if (c as i32) > res {
+        res = c as i32;
+    }
+
+    res
 }

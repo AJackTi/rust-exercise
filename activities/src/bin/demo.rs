@@ -880,10 +880,31 @@
 //     res
 // }
 
-const MAX_SPEED: i32 = 9000;
+// const MAX_SPEED: i32 = 9000;
 
-fn clamp_speed(speed: i32) -> i32 {
-    if speed > MAX_SPEED { MAX_SPEED } else { speed }
+// fn clamp_speed(speed: i32) -> i32 {
+//     if speed > MAX_SPEED { MAX_SPEED } else { speed }
+// }
+
+// fn main() {}
+
+#[derive(Debug, Clone, Copy)]
+struct NeverZero(i32);
+
+impl NeverZero {
+    fn new(i: i32) -> Result<Self, String> {
+        if i == 0 { Err("cannot be zero".to_owned()) } else { Ok(Self(i)) }
+    }
 }
 
-fn main() {}
+fn divide(a: i32, b: NeverZero) -> i32 {
+    let b = b.0;
+    a / b
+}
+
+fn main() {
+    match NeverZero::new(5) {
+        Ok(nz) => println!("{}", divide(10, nz)),
+        Err(e) => println!("{:?}", e),
+    }
+}

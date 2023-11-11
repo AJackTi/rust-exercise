@@ -863,19 +863,27 @@
 //     demo()
 // }
 
-fn main() {
-    println!("highest: {}", highest(1, 2, 3));
+// fn main() {
+//     println!("highest: {}", highest(1, 2, 3));
+// }
+
+// fn highest(a: i32, b: u32, c: i8) -> i32 {
+//     let mut res = a;
+//     if (b as i32) > res {
+//         res = b as i32;
+//     }
+
+//     if (c as i32) > res {
+//         res = c as i32;
+//     }
+
+//     res
+// }
+
+const MAX_SPEED: i32 = 9000;
+
+fn clamp_speed(speed: i32) -> i32 {
+    if speed > MAX_SPEED { MAX_SPEED } else { speed }
 }
 
-fn highest(a: i32, b: u32, c: i8) -> i32 {
-    let mut res = a;
-    if (b as i32) > res {
-        res = b as i32;
-    }
-
-    if (c as i32) > res {
-        res = c as i32;
-    }
-
-    res
-}
+fn main() {}

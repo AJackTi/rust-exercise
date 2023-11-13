@@ -12,6 +12,7 @@ edition = "2018"
 [dependencies]
 chrono = "0.4.31"
 thiserror = "1.0.50"
+rand = "0.5.0"
 
 [lib]
 name = "mylib"

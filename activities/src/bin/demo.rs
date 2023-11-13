@@ -909,13 +909,31 @@
 //     }
 // }
 
-fn say_hello(name: &mut &str) {
-    *name = "Alex";
-    println!("Hello {}", name);
-}
+// fn say_hello(name: &mut &str) {
+//     *name = "Alex";
+//     println!("Hello {}", name);
+// }
+
+// fn main() {
+//     let mut name = "John";
+//     say_hello(&mut name);
+//     println!("{}", name);
+// }
 
 fn main() {
-    let mut name = "John";
-    say_hello(&mut name);
-    println!("{}", name);
+    // let s = String::from("Hello");
+    // takes_ownership(&s);
+    // println!("{}", s);
+
+    let mut s = String::from("Hello");
+    let r1 = &s;
+    let r2 = &s;
+    let r3 = &mut s;
+    r3.push_str(" World");
+    println!("{}", r3);
+    println!("{}", s);
+}
+
+fn takes_ownership(s: &String) {
+    println!("s = {}", s);
 }

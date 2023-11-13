@@ -920,20 +920,27 @@
 //     println!("{}", name);
 // }
 
+// fn main() {
+//     // let s = String::from("Hello");
+//     // takes_ownership(&s);
+//     // println!("{}", s);
+
+//     let mut s = String::from("Hello");
+//     let r1 = &s;
+//     let r2 = &s;
+//     let r3 = &mut s;
+//     r3.push_str(" World");
+//     println!("{}", r3);
+//     println!("{}", s);
+// }
+
+// fn takes_ownership(s: &String) {
+//     println!("s = {}", s);
+// }
+
 fn main() {
-    // let s = String::from("Hello");
-    // takes_ownership(&s);
-    // println!("{}", s);
-
-    let mut s = String::from("Hello");
-    let r1 = &s;
-    let r2 = &s;
-    let r3 = &mut s;
-    r3.push_str(" World");
-    println!("{}", r3);
-    println!("{}", s);
-}
-
-fn takes_ownership(s: &String) {
-    println!("s = {}", s);
+    let a = String::from("Hello World");
+    let r1 = &a[0..5];
+    println!("{}", r1);
+    println!("{}", a);
 }

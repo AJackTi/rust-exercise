@@ -984,14 +984,42 @@
 //     network::server::connect()
 // }
 
-fn main() {
-    // let mut v = vec![1, 2, 3, 4];
-    // for i in &mut v {
-    //     *i *= 2;
-    //     println!("{}", i);
-    // }
+// fn main() {
+//     // let mut v = vec![1, 2, 3, 4];
+//     // for i in &mut v {
+//     //     *i *= 2;
+//     //     println!("{}", i);
+//     // }
 
-    let s1 = String::from("Hello");
-    let n = &s1[0..1];
-    println!("{}", n);
+//     let s1 = String::from("Hello");
+//     let n = &s1[0..1];
+//     println!("{}", n);
+// }
+
+use std::io;
+use std::io::Read;
+use std::fs::File;
+
+fn read() -> Result<String, io::Error> {
+    let f = File::open("hello.txt");
+    let mut f = match f {
+        Ok(file) => file,
+        Err(e) => {
+            return Err(e);
+        }
+    };
+
+    let mut s = String::new();
+    match f.read_to_string(&mut s) {
+        Ok(_) => Ok(s),
+        Err(e) => Err(e),
+    }
+}
+
+fn main() {
+    let output = read();
+    match output {
+        Ok(fi) => println!("{}", fi),
+        Err(e) => println!("{}", e),
+    }
 }

@@ -972,14 +972,26 @@
 //     }
 // }
 
-mod network {
-    fn connect() {}
+// mod network {
+//     fn connect() {}
 
-    pub mod server {
-        pub fn connect() {}
-    }
-}
+//     pub mod server {
+//         pub fn connect() {}
+//     }
+// }
+
+// fn main() {
+//     network::server::connect()
+// }
 
 fn main() {
-    network::server::connect()
+    // let mut v = vec![1, 2, 3, 4];
+    // for i in &mut v {
+    //     *i *= 2;
+    //     println!("{}", i);
+    // }
+
+    let s1 = String::from("Hello");
+    let n = &s1[0..1];
+    println!("{}", n);
 }

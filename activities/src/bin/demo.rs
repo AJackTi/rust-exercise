@@ -1044,14 +1044,62 @@
 //     }
 // }
 
-fn change(s: &mut String) {
-    s.push_str(", World");
+// fn change(s: &mut String) {
+//     s.push_str(", World");
+// }
+
+// fn main() {
+//     let mut s = String::from("Hello");
+//     let r1 = &mut s;
+//     println!("r1 = {}", r1);
+//     let r2 = &mut s;
+//     println!("r2 = {}", r2);
+// }
+
+#![allow(unused_assignments)]
+#![allow(unused_variables)]
+
+macro_rules! my_macro {
+    () => {
+        println!("First macro");
+    };
+}
+
+// macro_rules! name {
+//     ($name:expr) => {
+//         println!("Hey {}", $name);
+//     };
+// }
+
+macro_rules! name {
+    ($($name:expr),*) => {
+        $(println!("Hey {}", $name);)*
+    };
+}
+
+macro_rules! xy {
+    (x => $e:expr) => {
+        println!("X is {}", $e);
+    };
+    (y => $e:expr) => {
+        println!("Y is {}", $e);
+    };
+}
+
+macro_rules! build_fn {
+    ($fn_name:ident) => {
+        fn $fn_name() {
+            println!("{:?} was called", stringify!($fn_name));
+        }
+    };
 }
 
 fn main() {
-    let mut s = String::from("Hello");
-    let r1 = &mut s;
-    println!("r1 = {}", r1);
-    let r2 = &mut s;
-    println!("r2 = {}", r2);
+    my_macro!();
+    name!("John");
+    name!("John", "Mary", "Carol");
+    xy!(x=>5);
+    xy!(y=>3*9);
+    build_fn!(hey);
+    hey();
 }

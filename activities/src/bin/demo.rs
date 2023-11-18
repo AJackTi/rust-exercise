@@ -1024,22 +1024,34 @@
 //     }
 // }
 
-use std::io;
-use std::io::Read;
-use std::fs::File;
+// use std::io;
+// use std::io::Read;
+// use std::fs::File;
 
-fn read() -> Result<String, io::Error> {
-    let mut f = File::open("hello.txt")?;
+// fn read() -> Result<String, io::Error> {
+//     let mut f = File::open("hello.txt")?;
 
-    let mut s = String::new();
-    f.read_to_string(&mut s)?;
-    Ok(s)
+//     let mut s = String::new();
+//     f.read_to_string(&mut s)?;
+//     Ok(s)
+// }
+
+// fn main() {
+//     let output = read();
+//     match output {
+//         Ok(fi) => println!("{}", fi),
+//         Err(e) => println!("{}", e),
+//     }
+// }
+
+fn change(s: &mut String) {
+    s.push_str(", World");
 }
 
 fn main() {
-    let output = read();
-    match output {
-        Ok(fi) => println!("{}", fi),
-        Err(e) => println!("{}", e),
-    }
+    let mut s = String::from("Hello");
+    let r1 = &mut s;
+    println!("r1 = {}", r1);
+    let r2 = &mut s;
+    println!("r2 = {}", r2);
 }

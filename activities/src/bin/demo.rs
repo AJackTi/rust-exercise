@@ -1059,11 +1059,11 @@
 #![allow(unused_assignments)]
 #![allow(unused_variables)]
 
-macro_rules! my_macro {
-    () => {
-        println!("First macro");
-    };
-}
+// macro_rules! my_macro {
+//     () => {
+//         println!("First macro");
+//     };
+// }
 
 // macro_rules! name {
 //     ($name:expr) => {
@@ -1071,35 +1071,45 @@ macro_rules! my_macro {
 //     };
 // }
 
-macro_rules! name {
-    ($($name:expr),*) => {
-        $(println!("Hey {}", $name);)*
-    };
-}
+// macro_rules! name {
+//     ($($name:expr),*) => {
+//         $(println!("Hey {}", $name);)*
+//     };
+// }
 
-macro_rules! xy {
-    (x => $e:expr) => {
-        println!("X is {}", $e);
-    };
-    (y => $e:expr) => {
-        println!("Y is {}", $e);
-    };
-}
+// macro_rules! xy {
+//     (x => $e:expr) => {
+//         println!("X is {}", $e);
+//     };
+//     (y => $e:expr) => {
+//         println!("Y is {}", $e);
+//     };
+// }
 
-macro_rules! build_fn {
-    ($fn_name:ident) => {
-        fn $fn_name() {
-            println!("{:?} was called", stringify!($fn_name));
-        }
-    };
-}
+// macro_rules! build_fn {
+//     ($fn_name:ident) => {
+//         fn $fn_name() {
+//             println!("{:?} was called", stringify!($fn_name));
+//         }
+//     };
+// }
+
+// fn main() {
+//     my_macro!();
+//     name!("John");
+//     name!("John", "Mary", "Carol");
+//     xy!(x=>5);
+//     xy!(y=>3*9);
+//     build_fn!(hey);
+//     hey();
+// }
 
 fn main() {
-    my_macro!();
-    name!("John");
-    name!("John", "Mary", "Carol");
-    xy!(x=>5);
-    xy!(y=>3*9);
-    build_fn!(hey);
-    hey();
+    let mut a = 5;
+    mutate_value(&mut a);
+    println!("{}", a);
+}
+
+fn mutate_value(num: &mut i32) {
+    *num = 3;
 }

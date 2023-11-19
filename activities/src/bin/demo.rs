@@ -1118,6 +1118,7 @@
 //  1. One mutable reference in a scope
 //  2. Many immutable references
 //  3. Mutable and immutable can not coexist
+//  4. Data should not change when immutable references are in scope
 
 // fn main() {
 //     let mut heap_mut = vec![4, 5, 6];
@@ -1133,15 +1134,25 @@
 //     println!("The first references is {:?} and the second one is {:?}", ref1, ref2);
 // }
 
+// fn main() {
+//     let mut heap_num = vec![4, 5, 6];
+//     let ref1 = &heap_num;
+//     let ref2 = &heap_num;
+//     let ref3 = &mut heap_num;
+//     println!(
+//         "Immutable reference are {:?} and {:?} and teh mutable reference is {:?}",
+//         ref1,
+//         ref2,
+//         ref3
+//     );
+// }
+
 fn main() {
     let mut heap_num = vec![4, 5, 6];
     let ref1 = &heap_num;
     let ref2 = &heap_num;
+    println!("Immutable references are {:?} and {:?}", ref1, ref2);
+
     let ref3 = &mut heap_num;
-    println!(
-        "Immutable reference are {:?} and {:?} and teh mutable reference is {:?}",
-        ref1,
-        ref2,
-        ref3
-    );
+    println!("Mutable reference is {:?}", ref3);
 }

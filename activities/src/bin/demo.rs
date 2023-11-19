@@ -1104,12 +1104,22 @@
 //     hey();
 // }
 
-fn main() {
-    let mut a = 5;
-    mutate_value(&mut a);
-    println!("{}", a);
-}
+// fn main() {
+//     let mut a = 5;
+//     mutate_value(&mut a);
+//     println!("{}", a);
+// }
 
-fn mutate_value(num: &mut i32) {
-    *num = 3;
+// fn mutate_value(num: &mut i32) {
+//     *num = 3;
+// }
+
+// References Rules:
+//  1. One mutable reference in a scope
+
+fn main() {
+    let mut heap_mut = vec![4, 5, 6];
+    let ref1 = &mut heap_mut;
+    let ref2 = &mut heap_mut; // Error
+    println!("The first reference is {:?} and the second one is {:?}", ref1, ref2);
 }

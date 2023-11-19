@@ -1116,10 +1116,18 @@
 
 // References Rules:
 //  1. One mutable reference in a scope
+//  2. Many immutable references
+
+// fn main() {
+//     let mut heap_mut = vec![4, 5, 6];
+//     let ref1 = &mut heap_mut;
+//     let ref2 = &mut heap_mut; // Error
+//     println!("The first reference is {:?} and the second one is {:?}", ref1, ref2);
+// }
 
 fn main() {
-    let mut heap_mut = vec![4, 5, 6];
-    let ref1 = &mut heap_mut;
-    let ref2 = &mut heap_mut; // Error
-    println!("The first reference is {:?} and the second one is {:?}", ref1, ref2);
+    let mut heap_num = vec![4, 5, 6];
+    let ref1 = &heap_num;
+    let ref2 = &heap_num;
+    println!("The first references is {:?} and the second one is {:?}", ref1, ref2);
 }

@@ -1147,12 +1147,22 @@
 //     );
 // }
 
+// fn main() {
+//     let mut heap_num = vec![4, 5, 6];
+//     let ref1 = &heap_num;
+//     let ref2 = &heap_num;
+//     println!("Immutable references are {:?} and {:?}", ref1, ref2);
+
+//     let ref3 = &mut heap_num;
+//     println!("Mutable reference is {:?}", ref3);
+// }
+
 fn main() {
     let mut heap_num = vec![4, 5, 6];
+    heap_num.push(86); // work
     let ref1 = &heap_num;
+    // heap_num.push(86); // not work
     let ref2 = &heap_num;
     println!("Immutable references are {:?} and {:?}", ref1, ref2);
-
-    let ref3 = &mut heap_num;
-    println!("Mutable reference is {:?}", ref3);
+    heap_num.push(86); // work
 }

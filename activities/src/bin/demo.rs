@@ -1157,12 +1157,38 @@
 //     println!("Mutable reference is {:?}", ref3);
 // }
 
+// fn main() {
+//     let mut heap_num = vec![4, 5, 6];
+//     heap_num.push(86); // work
+//     let ref1 = &heap_num;
+//     // heap_num.push(86); // not work
+//     let ref2 = &heap_num;
+//     println!("Immutable references are {:?} and {:?}", ref1, ref2);
+//     heap_num.push(86); // work
+// }
+
+use std::ops::Add;
+
+#[derive(Debug)]
+pub struct Point {
+    x: i32,
+    y: i32,
+}
+
+impl Add for Point {
+    type Output = Self;
+    fn add(self, other: Self) -> Self::Output {
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
 fn main() {
-    let mut heap_num = vec![4, 5, 6];
-    heap_num.push(86); // work
-    let ref1 = &heap_num;
-    // heap_num.push(86); // not work
-    let ref2 = &heap_num;
-    println!("Immutable references are {:?} and {:?}", ref1, ref2);
-    heap_num.push(86); // work
+    let a = Point { x: 3, y: 5 };
+    let b = Point { x: 30, y: 50 };
+
+    let c = a + b;
+    println!("{:?}", c);
 }

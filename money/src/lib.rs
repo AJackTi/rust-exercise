@@ -2,11 +2,11 @@ pub fn add(left: usize, right: usize) -> usize {
     left + right
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct USD(i32);
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct GBP(i32);
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct CAD(i32);
 
 pub trait ToUSD {
@@ -40,9 +40,23 @@ pub trait FromUSDv<F> {
     fn from_uv(&self, _: f32) -> F;
 }
 
+impl Account for Ex {
+    fn id(&self) -> i32 {
+        self.ac_id
+    }
+}
+
 pub struct Ex {
+    ac_id: i32,
     cad: f32,
     gbp: f32,
+}
+
+#[derive(Debug, PartialEq)]
+pub struct Transaction<A> {
+    from_id: i32,
+    to_id: i32,
+    amount: A,
 }
 
 impl ToUSDv<GBP> for Ex {
@@ -57,6 +71,10 @@ impl FromUSDv<CAD> for Ex {
     }
 }
 
+pub trait Account {
+    fn id(&self) -> i32;
+}
+
 pub trait Exchange<F, T> {
     fn convert(&self, _: F) -> T;
 }
@@ -64,6 +82,18 @@ pub trait Exchange<F, T> {
 impl<E, F, T> Exchange<F, T> for E where E: ToUSDv<F> + FromUSDv<T> {
     fn convert(&self, f: F) -> T {
         self.from_uv(self.to_uv(f))
+    }
+}
+
+pub trait ExchangeAccount<F, T> {
+    fn exchange(&self, f_id: i32, i_id: i32, amount: F) -> (Transaction<F>, Transaction<T>);
+}
+
+impl<E, F, T> ExchangeAccount<F, T> for E where E: Exchange<F, T> + Account, F: Clone {
+    fn exchange(&self, f_id: i32, t_id: i32, amount: F) -> (Transaction<F>, Transaction<T>) {
+        let ft = Transaction { from_id: f_id, to_id: self.id(), amount: amount.clone() };
+        let tt = Transaction { from_id: self.id(), to_id: t_id, amount: self.convert(amount) };
+        (ft, tt)
     }
 }
 
@@ -87,13 +117,18 @@ mod tests {
         assert_eq!(c2, c);
 
         let g = GBP(200);
-        let ex = Ex { cad: 0.7, gbp: 1.3 };
+        let ex = Ex { cad: 0.7, gbp: 1.3, ac_id: 0 };
         let c = ex.from_uv(ex.to_uv(g));
         assert_eq!(c, CAD(371));
 
         let g = GBP(200);
-        let ex = Ex { cad: 0.7, gbp: 1.3 };
+        let ex = Ex { cad: 0.7, gbp: 1.3, ac_id: 0 };
         let c = ex.convert(g);
         assert_eq!(c, CAD(371));
+
+        let ex = Ex { ac_id: 30, cad: 0.7, gbp: 1.3 };
+        let (ft, tt) = ex.exchange(20, 40, GBP(200));
+        assert_eq!(ft, Transaction { from_id: 20, to_id: 30, amount: GBP(200) });
+        assert_eq!(tt, Transaction { from_id: 30, to_id: 40, amount: CAD(371) });
     }
 }

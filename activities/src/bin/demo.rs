@@ -1167,6 +1167,10 @@
 //     heap_num.push(86); // work
 // }
 
+extern crate rand;
+
+use rand::Rng;
+
 use std::ops::Add;
 
 #[derive(Debug)]
@@ -1185,10 +1189,23 @@ impl Add for Point {
     }
 }
 
+impl Point {
+    fn random() -> Self {
+        let mut tr = rand::thread_rng();
+        Point {
+            x: tr.gen(),
+            y: tr.gen(),
+        }
+    }
+}
+
 fn main() {
     let a = Point { x: 3, y: 5 };
     let b = Point { x: 30, y: 50 };
 
     let c = a + b;
     println!("{:?}", c);
+
+    let d = Point::random();
+    println!("c = {:?}", d);
 }

@@ -1357,30 +1357,50 @@
 //     println!("{}", a);
 // }
 
-use std::rc::Rc;
+// use std::rc::Rc;
 
-struct Car {
-    brand: Rc<String>,
-}
+// struct Car {
+//     brand: Rc<String>,
+// }
 
-impl Car {
-    fn new(brand: Rc<String>) -> Car {
-        Car { brand: brand }
-    }
+// impl Car {
+//     fn new(brand: Rc<String>) -> Car {
+//         Car { brand: brand }
+//     }
 
-    fn drive(&self) {
-        println!("{} is driving", &self.brand);
-    }
-}
+//     fn drive(&self) {
+//         println!("{} is driving", &self.brand);
+//     }
+// }
+
+// fn main() {
+//     let brand = Rc::new(String::from("BMW"));
+//     println!("pointers: {}", Rc::strong_count(&brand));
+//     {
+//         let car = Car::new(brand.clone());
+//         car.drive();
+//         println!("pointers: {}", Rc::strong_count(&brand));
+//     }
+//     println!("My car is a {}", brand);
+//     println!("pointers: {}", Rc::strong_count(&brand));
+// }
+
+use std::{ fs::{ File, OpenOptions, remove_dir, remove_file }, io::{ Write, Read } };
 
 fn main() {
-    let brand = Rc::new(String::from("BMW"));
-    println!("pointers: {}", Rc::strong_count(&brand));
-    {
-        let car = Car::new(brand.clone());
-        car.drive();
-        println!("pointers: {}", Rc::strong_count(&brand));
-    }
-    println!("My car is a {}", brand);
-    println!("pointers: {}", Rc::strong_count(&brand));
+    // let mut file = File::create("src/example.txt").expect("create failed");
+    // file.write_all("Hello World\n".as_bytes()).expect("write failed")
+
+    // let mut file = OpenOptions::new()
+    //     .append(true)
+    //     .open("src/example.txt")
+    //     .expect("cannot open file");
+    // file.write_all("Adding content to the file\n".as_bytes()).expect("write failed")
+
+    let mut file = File::open("src/example.txt").unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+    println!("{}", contents);
+
+    remove_file("src/example.txt").expect("delete failed")
 }

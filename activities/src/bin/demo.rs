@@ -1385,22 +1385,49 @@
 //     println!("pointers: {}", Rc::strong_count(&brand));
 // }
 
-use std::{ fs::{ File, OpenOptions, remove_dir, remove_file }, io::{ Write, Read } };
+// use std::{ fs::{ File, OpenOptions, remove_dir, remove_file }, io::{ Write, Read } };
+
+// fn main() {
+//     // let mut file = File::create("src/example.txt").expect("create failed");
+//     // file.write_all("Hello World\n".as_bytes()).expect("write failed")
+
+//     // let mut file = OpenOptions::new()
+//     //     .append(true)
+//     //     .open("src/example.txt")
+//     //     .expect("cannot open file");
+//     // file.write_all("Adding content to the file\n".as_bytes()).expect("write failed")
+
+//     let mut file = File::open("src/example.txt").unwrap();
+//     let mut contents = String::new();
+//     file.read_to_string(&mut contents).unwrap();
+//     println!("{}", contents);
+
+//     remove_file("src/example.txt").expect("delete failed")
+// }
+
+use std::fs::File;
 
 fn main() {
-    // let mut file = File::create("src/example.txt").expect("create failed");
-    // file.write_all("Hello World\n".as_bytes()).expect("write failed")
+    let f = File::open("main.jpg");
+    match f {
+        Ok(f) => {
+            println!("file found: {:?}", f);
+        }
+        Err(e) => {
+            println!("file not found: {:?}", e);
+        }
+    }
 
-    // let mut file = OpenOptions::new()
-    //     .append(true)
-    //     .open("src/example.txt")
-    //     .expect("cannot open file");
-    // file.write_all("Adding content to the file\n".as_bytes()).expect("write failed")
+    println!("Continuing on with execution");
+    divide(Some(1))
+}
 
-    let mut file = File::open("src/example.txt").unwrap();
-    let mut contents = String::new();
-    file.read_to_string(&mut contents).unwrap();
-    println!("{}", contents);
+const ANSWER_TO_LIFE: i32 = 42;
 
-    remove_file("src/example.txt").expect("delete failed")
+fn divide(x: Option<i32>) {
+    match x {
+        Some(0) => panic!("Cannot divide by 0"),
+        Some(x) => println!("result is: {}", ANSWER_TO_LIFE / x),
+        None => println!("None received, the answer is {}", ANSWER_TO_LIFE),
+    }
 }

@@ -1238,21 +1238,47 @@
 //     println!("The animal says {}", get_animal(1.0).make_noise());
 // }
 
-trait Summable<T> {
-    fn sum(&self) -> T;
+// trait Summable<T> {
+//     fn sum(&self) -> T;
+// }
+
+// impl Summable<i32> for Vec<i32> {
+//     fn sum(&self) -> i32 {
+//         let mut sum = 0;
+//         for i in self {
+//             sum += *i;
+//         }
+//         sum
+//     }
+// }
+
+// fn main() {
+//     let a = vec![1, 2, 3, 4, 5];
+//     println!("sum = {}", a.sum());
+// }
+
+use std::ops::Add;
+
+#[derive(Debug)]
+struct Point {
+    x: f64,
+    y: f64,
 }
 
-impl Summable<i32> for Vec<i32> {
-    fn sum(&self) -> i32 {
-        let mut sum = 0;
-        for i in self {
-            sum += *i;
+impl Add for Point {
+    type Output = Point;
+
+    fn add(self, other: Self) -> Self::Output {
+        Point {
+            x: self.x + other.x,
+            y: self.y + other.y,
         }
-        sum
     }
 }
 
 fn main() {
-    let a = vec![1, 2, 3, 4, 5];
-    println!("sum = {}", a.sum());
+    let p1 = Point { x: 1.3, y: 4.6 };
+    let p2 = Point { x: 3.7, y: 1.4 };
+    let p3 = p1 + p2;
+    println!("{:?}", p3);
 }

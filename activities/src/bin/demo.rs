@@ -1283,36 +1283,76 @@
 //     println!("{:?}", p3);
 // }
 
-trait Duplicatable {
-    fn dupl(&self) -> String;
-}
+// trait Duplicatable {
+//     fn dupl(&self) -> String;
+// }
 
-impl Duplicatable for String {
-    fn dupl(&self) -> String {
-        format!("{0}{0}", *self)
-    }
-}
+// impl Duplicatable for String {
+//     fn dupl(&self) -> String {
+//         format!("{0}{0}", *self)
+//     }
+// }
 
-impl Duplicatable for i32 {
-    fn dupl(&self) -> String {
-        format!("{}", *self * 2)
-    }
-}
+// impl Duplicatable for i32 {
+//     fn dupl(&self) -> String {
+//         format!("{}", *self * 2)
+//     }
+// }
 
 // fn duplicate<T: Duplicatable>(x: T) {
 //     println!("{}", x.dupl());
 // }
 
-fn duplicate(x: &dyn Duplicatable) {
-    println!("{}", x.dupl());
+// fn duplicate(x: &dyn Duplicatable) {
+//     println!("{}", x.dupl());
+// }
+
+// fn main() {
+//     let a = 42;
+//     let b = "Hi John ".to_string();
+//     // duplicate(a);
+//     // duplicate(b)
+
+//     duplicate(&a);
+//     duplicate(&b);
+// }
+
+#[derive(Debug)]
+struct Person {
+    name: String,
+}
+
+#[derive(Debug)]
+struct Dog<'l> {
+    name: String,
+    owner: &'l Person,
+}
+
+impl Person {
+    // fn get_name(&self) -> &String {
+    //     &self.name
+    // }
+
+    fn get_name<'l>(&'l self) -> &'l String {
+        &self.name
+    }
 }
 
 fn main() {
-    let a = 42;
-    let b = "Hi John ".to_string();
-    // duplicate(a);
-    // duplicate(b)
+    let p1 = Person { name: String::from("John") };
+    let d1 = Dog { name: String::from("Max"), owner: &p1 };
 
-    duplicate(&a);
-    duplicate(&b);
+    println!("{:?}", p1);
+    println!("{:?}", d1);
+
+    let mut a: &String;
+    {
+        // WRONG
+        let p2 = Person { name: String::from("Mary") };
+        // a = p2.get_name();
+
+        // WORK
+        a = p1.get_name();
+    }
+    println!("{}", a);
 }

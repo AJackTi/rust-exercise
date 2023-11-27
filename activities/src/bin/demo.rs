@@ -1257,28 +1257,55 @@
 //     println!("sum = {}", a.sum());
 // }
 
-use std::ops::Add;
+// use std::ops::Add;
 
-#[derive(Debug)]
-struct Point {
-    x: f64,
-    y: f64,
+// #[derive(Debug)]
+// struct Point {
+//     x: f64,
+//     y: f64,
+// }
+
+// impl Add for Point {
+//     type Output = Point;
+
+//     fn add(self, other: Self) -> Self::Output {
+//         Point {
+//             x: self.x + other.x,
+//             y: self.y + other.y,
+//         }
+//     }
+// }
+
+// fn main() {
+//     let p1 = Point { x: 1.3, y: 4.6 };
+//     let p2 = Point { x: 3.7, y: 1.4 };
+//     let p3 = p1 + p2;
+//     println!("{:?}", p3);
+// }
+
+trait Duplicatable {
+    fn dupl(&self) -> String;
 }
 
-impl Add for Point {
-    type Output = Point;
-
-    fn add(self, other: Self) -> Self::Output {
-        Point {
-            x: self.x + other.x,
-            y: self.y + other.y,
-        }
+impl Duplicatable for String {
+    fn dupl(&self) -> String {
+        format!("{0}{0}", *self)
     }
 }
 
+impl Duplicatable for i32 {
+    fn dupl(&self) -> String {
+        format!("{}", *self * 2)
+    }
+}
+
+fn duplicate<T: Duplicatable>(x: T) {
+    println!("{}", x.dupl());
+}
+
 fn main() {
-    let p1 = Point { x: 1.3, y: 4.6 };
-    let p2 = Point { x: 3.7, y: 1.4 };
-    let p3 = p1 + p2;
-    println!("{:?}", p3);
+    let a = 42;
+    let b = "Hi John ".to_string();
+    duplicate(a);
+    duplicate(b)
 }

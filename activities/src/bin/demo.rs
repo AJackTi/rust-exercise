@@ -1167,45 +1167,73 @@
 //     heap_num.push(86); // work
 // }
 
-extern crate rand;
+// extern crate rand;
 
-use rand::Rng;
+// use rand::Rng;
 
-use std::ops::Add;
+// use std::ops::Add;
 
-#[derive(Debug)]
-pub struct Point {
-    x: i32,
-    y: i32,
-}
+// #[derive(Debug)]
+// pub struct Point {
+//     x: i32,
+//     y: i32,
+// }
 
-impl Add for Point {
-    type Output = Self;
-    fn add(self, other: Self) -> Self::Output {
-        Point {
-            x: self.x + other.x,
-            y: self.y + other.y,
-        }
+// impl Add for Point {
+//     type Output = Self;
+//     fn add(self, other: Self) -> Self::Output {
+//         Point {
+//             x: self.x + other.x,
+//             y: self.y + other.y,
+//         }
+//     }
+// }
+
+// impl Point {
+//     fn random() -> Self {
+//         let mut tr = rand::thread_rng();
+//         Point {
+//             x: tr.gen(),
+//             y: tr.gen(),
+//         }
+//     }
+// }
+
+// fn main() {
+//     let a = Point { x: 3, y: 5 };
+//     let b = Point { x: 30, y: 50 };
+
+//     let c = a + b;
+//     println!("{:?}", c);
+
+//     let d = Point::random();
+//     println!("c = {:?}", d);
+// }
+
+struct Dog {}
+struct Cat {}
+
+impl Animal for Dog {
+    fn make_noise(&self) -> &'static str {
+        "woof"
     }
 }
 
-impl Point {
-    fn random() -> Self {
-        let mut tr = rand::thread_rng();
-        Point {
-            x: tr.gen(),
-            y: tr.gen(),
-        }
+impl Animal for Cat {
+    fn make_noise(&self) -> &'static str {
+        "meow"
     }
+}
+
+trait Animal {
+    fn make_noise(&self) -> &'static str;
+}
+
+fn get_animal(rand_number: f64) -> Box<dyn Animal> {
+    if rand_number < 1.0 { Box::new(Dog {}) } else { Box::new(Cat {}) }
 }
 
 fn main() {
-    let a = Point { x: 3, y: 5 };
-    let b = Point { x: 30, y: 50 };
-
-    let c = a + b;
-    println!("{:?}", c);
-
-    let d = Point::random();
-    println!("c = {:?}", d);
+    println!("The animal says {}", get_animal(0.5).make_noise());
+    println!("The animal says {}", get_animal(1.0).make_noise());
 }

@@ -1405,29 +1405,59 @@
 //     remove_file("src/example.txt").expect("delete failed")
 // }
 
-use std::fs::File;
+// use std::fs::File;
 
-fn main() {
-    let f = File::open("main.jpg");
-    match f {
-        Ok(f) => {
-            println!("file found: {:?}", f);
-        }
-        Err(e) => {
-            println!("file not found: {:?}", e);
-        }
-    }
+// fn main() {
+//     let f = File::open("main.jpg");
+//     match f {
+//         Ok(f) => {
+//             println!("file found: {:?}", f);
+//         }
+//         Err(e) => {
+//             println!("file not found: {:?}", e);
+//         }
+//     }
 
-    println!("Continuing on with execution");
-    divide(Some(1))
+//     println!("Continuing on with execution");
+//     divide(Some(1))
+// }
+
+// const ANSWER_TO_LIFE: i32 = 42;
+
+// fn divide(x: Option<i32>) {
+//     match x {
+//         Some(0) => panic!("Cannot divide by 0"),
+//         Some(x) => println!("result is: {}", ANSWER_TO_LIFE / x),
+//         None => println!("None received, the answer is {}", ANSWER_TO_LIFE),
+//     }
+// }
+
+use std::{ io::{ self, Read }, fs::File };
+
+// fn read_username_from_file() -> Result<String, io::Error> {
+//     let f = File::open("username.txt");
+//     let mut f = match f {
+//         Ok(file) => file,
+//         Err(e) => {
+//             return Err(e);
+//         }
+//     };
+
+//     let mut s = String::new();
+//     match f.read_to_string(&mut s) {
+//         Ok(_) => Ok(s),
+//         Err(e) => Err(e),
+//     }
+// }
+
+fn read_username_from_file() -> Result<String, io::Error> {
+    let mut f = File::open("src/username.txt")?;
+    let mut s = String::new();
+    f.read_to_string(&mut s)?;
+    Ok(s)
 }
 
-const ANSWER_TO_LIFE: i32 = 42;
-
-fn divide(x: Option<i32>) {
-    match x {
-        Some(0) => panic!("Cannot divide by 0"),
-        Some(x) => println!("result is: {}", ANSWER_TO_LIFE / x),
-        None => println!("None received, the answer is {}", ANSWER_TO_LIFE),
-    }
+fn main() {
+    let a = read_username_from_file();
+    println!("{:?}", a);
 }

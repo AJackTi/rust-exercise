@@ -1317,42 +1317,70 @@
 //     duplicate(&b);
 // }
 
-#[derive(Debug)]
-struct Person {
-    name: String,
+// #[derive(Debug)]
+// struct Person {
+//     name: String,
+// }
+
+// #[derive(Debug)]
+// struct Dog<'l> {
+//     name: String,
+//     owner: &'l Person,
+// }
+
+// impl Person {
+//     // fn get_name(&self) -> &String {
+//     //     &self.name
+//     // }
+
+//     fn get_name<'l>(&'l self) -> &'l String {
+//         &self.name
+//     }
+// }
+
+// fn main() {
+//     let p1 = Person { name: String::from("John") };
+//     let d1 = Dog { name: String::from("Max"), owner: &p1 };
+
+//     println!("{:?}", p1);
+//     println!("{:?}", d1);
+
+//     let mut a: &String;
+//     {
+//         // WRONG
+//         let p2 = Person { name: String::from("Mary") };
+//         // a = p2.get_name();
+
+//         // WORK
+//         a = p1.get_name();
+//     }
+//     println!("{}", a);
+// }
+
+use std::rc::Rc;
+
+struct Car {
+    brand: Rc<String>,
 }
 
-#[derive(Debug)]
-struct Dog<'l> {
-    name: String,
-    owner: &'l Person,
-}
+impl Car {
+    fn new(brand: Rc<String>) -> Car {
+        Car { brand: brand }
+    }
 
-impl Person {
-    // fn get_name(&self) -> &String {
-    //     &self.name
-    // }
-
-    fn get_name<'l>(&'l self) -> &'l String {
-        &self.name
+    fn drive(&self) {
+        println!("{} is driving", &self.brand);
     }
 }
 
 fn main() {
-    let p1 = Person { name: String::from("John") };
-    let d1 = Dog { name: String::from("Max"), owner: &p1 };
-
-    println!("{:?}", p1);
-    println!("{:?}", d1);
-
-    let mut a: &String;
+    let brand = Rc::new(String::from("BMW"));
+    println!("pointers: {}", Rc::strong_count(&brand));
     {
-        // WRONG
-        let p2 = Person { name: String::from("Mary") };
-        // a = p2.get_name();
-
-        // WORK
-        a = p1.get_name();
+        let car = Car::new(brand.clone());
+        car.drive();
+        println!("pointers: {}", Rc::strong_count(&brand));
     }
-    println!("{}", a);
+    println!("My car is a {}", brand);
+    println!("pointers: {}", Rc::strong_count(&brand));
 }

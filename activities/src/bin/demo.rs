@@ -1210,30 +1210,49 @@
 //     println!("c = {:?}", d);
 // }
 
-struct Dog {}
-struct Cat {}
+// struct Dog {}
+// struct Cat {}
 
-impl Animal for Dog {
-    fn make_noise(&self) -> &'static str {
-        "woof"
+// impl Animal for Dog {
+//     fn make_noise(&self) -> &'static str {
+//         "woof"
+//     }
+// }
+
+// impl Animal for Cat {
+//     fn make_noise(&self) -> &'static str {
+//         "meow"
+//     }
+// }
+
+// trait Animal {
+//     fn make_noise(&self) -> &'static str;
+// }
+
+// fn get_animal(rand_number: f64) -> Box<dyn Animal> {
+//     if rand_number < 1.0 { Box::new(Dog {}) } else { Box::new(Cat {}) }
+// }
+
+// fn main() {
+//     println!("The animal says {}", get_animal(0.5).make_noise());
+//     println!("The animal says {}", get_animal(1.0).make_noise());
+// }
+
+trait Summable<T> {
+    fn sum(&self) -> T;
+}
+
+impl Summable<i32> for Vec<i32> {
+    fn sum(&self) -> i32 {
+        let mut sum = 0;
+        for i in self {
+            sum += *i;
+        }
+        sum
     }
-}
-
-impl Animal for Cat {
-    fn make_noise(&self) -> &'static str {
-        "meow"
-    }
-}
-
-trait Animal {
-    fn make_noise(&self) -> &'static str;
-}
-
-fn get_animal(rand_number: f64) -> Box<dyn Animal> {
-    if rand_number < 1.0 { Box::new(Dog {}) } else { Box::new(Cat {}) }
 }
 
 fn main() {
-    println!("The animal says {}", get_animal(0.5).make_noise());
-    println!("The animal says {}", get_animal(1.0).make_noise());
+    let a = vec![1, 2, 3, 4, 5];
+    println!("sum = {}", a.sum());
 }

@@ -1299,13 +1299,20 @@ impl Duplicatable for i32 {
     }
 }
 
-fn duplicate<T: Duplicatable>(x: T) {
+// fn duplicate<T: Duplicatable>(x: T) {
+//     println!("{}", x.dupl());
+// }
+
+fn duplicate(x: &dyn Duplicatable) {
     println!("{}", x.dupl());
 }
 
 fn main() {
     let a = 42;
     let b = "Hi John ".to_string();
-    duplicate(a);
-    duplicate(b)
+    // duplicate(a);
+    // duplicate(b)
+
+    duplicate(&a);
+    duplicate(&b);
 }

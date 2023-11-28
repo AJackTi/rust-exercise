@@ -1462,21 +1462,52 @@
 //     println!("{:?}", a);
 // }
 
-use std::{ thread::{ self, sleep }, time::Duration };
+// use std::{ thread::{ self, sleep }, time::Duration };
+
+// fn main() {
+//     let mut threads = vec![];
+//     for i in 0..10 {
+//         let th = thread::spawn(move || {
+//             sleep(Duration::from_millis(i * 1000));
+//             println!("new thread {}", i);
+//         });
+//         threads.push(th);
+//     }
+
+//     for t in threads {
+//         let _ = t.join();
+//     }
+
+//     println!("Main thread");
+// }
+
+use std::{ sync::mpsc, thread, time::Duration };
+
+const NUM_THREADS: usize = 20;
+
+fn start_thread(d: usize, tx: mpsc::Sender<usize>) {
+    thread::spawn(move || {
+        println!("setting timer {}", d);
+        thread::sleep(Duration::from_secs(d as u64));
+        println!("sending {}", d);
+        tx.send(d).unwrap()
+    });
+}
 
 fn main() {
-    let mut threads = vec![];
-    for i in 0..10 {
-        let th = thread::spawn(move || {
-            sleep(Duration::from_millis(i * 1000));
-            println!("new thread {}", i);
-        });
-        threads.push(th);
+    // let (tx, rx) = mpsc::channel();
+    // thread::spawn(move || {
+    //     tx.send(42).unwrap();
+    // });
+
+    // println!("received {}", rx.recv().unwrap());
+
+    let (tx, rx) = mpsc::channel();
+    for i in 0..NUM_THREADS {
+        start_thread(i, tx.clone());
     }
 
-    for t in threads {
-        let _ = t.join();
+    for j in rx.iter().take(NUM_THREADS) {
+        println!("received {}", j);
     }
-
-    println!("Main thread");
 }

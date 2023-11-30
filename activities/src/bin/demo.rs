@@ -1620,21 +1620,33 @@
 //     println!("{:?}", b);
 // }
 
+// use std::thread;
+// use std::time::Duration;
+
+// fn main() {
+//     let handle = thread::spawn(|| {
+//         for i in 0..10 {
+//             println!("New thread {}", i);
+//             thread::sleep(Duration::from_secs(2));
+//         }
+//     });
+
+//     handle.join();
+
+//     for i in 0..5 {
+//         println!("Main thread {}", i);
+//         thread::sleep(Duration::from_secs(2));
+//     }
+// }
+
 use std::thread;
-use std::time::Duration;
 
 fn main() {
-    let handle = thread::spawn(|| {
-        for i in 0..10 {
-            println!("New thread {}", i);
-            thread::sleep(Duration::from_secs(2));
-        }
+    let v = vec![1, 2, 3];
+
+    let handle = thread::spawn(move || {
+        println!("vector value is: {:?}", v);
     });
 
     handle.join();
-
-    for i in 0..5 {
-        println!("Main thread {}", i);
-        thread::sleep(Duration::from_secs(2));
-    }
 }

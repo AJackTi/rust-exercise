@@ -1651,32 +1651,54 @@
 //     handle.join();
 // }
 
-use std::thread;
-use std::sync::mpsc;
-use std::time::Duration;
+// use std::thread;
+// use std::sync::mpsc;
+// use std::time::Duration;
+
+// fn main() {
+//     let (tx, rx) = mpsc::channel();
+//     thread::spawn(move || {
+//         // let value = String::from("Hi");
+//         // tx.send(value).unwrap();
+//         let value = vec![
+//             String::from("Hi"),
+//             String::from("welcome"),
+//             String::from("to"),
+//             String::from("Rust")
+//         ];
+
+//         for i in value {
+//             tx.send(i).unwrap();
+//             thread::sleep(Duration::from_secs(1));
+//         }
+//     });
+
+//     // let received = rx.recv().unwrap();
+//     // println!("Got the message: {}", received.as_str());
+
+//     for received in rx {
+//         println!("{}", received);
+//     }
+// }
+
+use std::ops::Add;
+
+#[derive(Debug)]
+struct Point<T> {
+    x: T,
+    y: T,
+}
+
+impl<T> Add for Point<T> where T: Add<Output = T> {
+    type Output = Self;
+    fn add(self, other: Self) -> Self {
+        Self { x: self.x + other.x, y: self.y + other.y }
+    }
+}
 
 fn main() {
-    let (tx, rx) = mpsc::channel();
-    thread::spawn(move || {
-        // let value = String::from("Hi");
-        // tx.send(value).unwrap();
-        let value = vec![
-            String::from("Hi"),
-            String::from("welcome"),
-            String::from("to"),
-            String::from("Rust")
-        ];
-
-        for i in value {
-            tx.send(i).unwrap();
-            thread::sleep(Duration::from_secs(1));
-        }
-    });
-
-    // let received = rx.recv().unwrap();
-    // println!("Got the message: {}", received.as_str());
-
-    for received in rx {
-        println!("{}", received);
-    }
+    let coord = Point { x: 5.0, y: 5.0 };
+    let coord2 = Point { x: 1.0, y: 2.0 };
+    let coord3 = coord.add(coord2);
+    println!("{:?}", coord3);
 }

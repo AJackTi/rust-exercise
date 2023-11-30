@@ -1579,31 +1579,43 @@
 //     println!("{}", a);
 // }
 
+// use std::rc::Rc;
+
+// struct Person {
+//     name: Rc<String>,
+// }
+
+// impl Person {
+//     fn name(x: Rc<String>) -> Self {
+//         Person { name: x }
+//     }
+// }
+
+// fn main() {
+//     let a = Rc::new("Hello".to_string());
+
+//     println!("No of smart pointers: {}", Rc::strong_count(&a));
+
+//     let b = Person::name(a.clone());
+//     println!("No of smart pointers: {}", Rc::strong_count(&a));
+
+//     {
+//         let c: Person = Person::name(a.clone());
+//         println!("No of smart pointers: {}", Rc::strong_count(&a));
+//     }
+
+//     println!("No of smart pointers: {}", Rc::strong_count(&a));
+//     println!("{}", a);
+// }
+
 use std::rc::Rc;
-
-struct Person {
-    name: Rc<String>,
-}
-
-impl Person {
-    fn name(x: Rc<String>) -> Self {
-        Person { name: x }
-    }
-}
+use std::cell::RefCell;
 
 fn main() {
-    let a = Rc::new("Hello".to_string());
+    let value = Rc::new(RefCell::new(5));
+    let b = Rc::new(Rc::clone(&value));
 
-    println!("No of smart pointers: {}", Rc::strong_count(&a));
+    *b.borrow_mut() += 10;
 
-    let b = Person::name(a.clone());
-    println!("No of smart pointers: {}", Rc::strong_count(&a));
-
-    {
-        let c: Person = Person::name(a.clone());
-        println!("No of smart pointers: {}", Rc::strong_count(&a));
-    }
-
-    println!("No of smart pointers: {}", Rc::strong_count(&a));
-    println!("{}", a);
+    println!("{:?}", b);
 }

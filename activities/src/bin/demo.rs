@@ -1553,16 +1553,28 @@
 // current item and the next item. The last item in the list contains only a value called Nil
 // without a next item.
 // A Cons List is produced by recursively calling the cons function
-use crate::List::{ Cons, Nil };
+// use crate::List::{ Cons, Nil };
 
-enum List {
-    Cons(i32, Box<List>),
-    Nil,
+// enum List {
+//     Cons(i32, Box<List>),
+//     Nil,
+// }
+
+// fn main() {
+//     // Error
+//     // let list = Cons(1, Cons(2, Cons(5, Nil)));
+//     // Work
+//     let list1 = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+// }
+
+use std::rc::Rc;
+
+fn function(x: Rc<String>) {
+    println!("{}", x);
 }
 
 fn main() {
-    // Error
-    // let list = Cons(1, Cons(2, Cons(5, Nil)));
-    // Work
-    let list1 = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
+    let a = Rc::new("Hello".to_string());
+    function(a.clone());
+    println!("{}", a);
 }

@@ -1567,14 +1567,43 @@
 //     let list1 = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 // }
 
+// use std::rc::Rc;
+
+// fn function(x: Rc<String>) {
+//     println!("{}", x);
+// }
+
+// fn main() {
+//     let a = Rc::new("Hello".to_string());
+//     function(a.clone());
+//     println!("{}", a);
+// }
+
 use std::rc::Rc;
 
-fn function(x: Rc<String>) {
-    println!("{}", x);
+struct Person {
+    name: Rc<String>,
+}
+
+impl Person {
+    fn name(x: Rc<String>) -> Self {
+        Person { name: x }
+    }
 }
 
 fn main() {
     let a = Rc::new("Hello".to_string());
-    function(a.clone());
+
+    println!("No of smart pointers: {}", Rc::strong_count(&a));
+
+    let b = Person::name(a.clone());
+    println!("No of smart pointers: {}", Rc::strong_count(&a));
+
+    {
+        let c: Person = Person::name(a.clone());
+        println!("No of smart pointers: {}", Rc::strong_count(&a));
+    }
+
+    println!("No of smart pointers: {}", Rc::strong_count(&a));
     println!("{}", a);
 }

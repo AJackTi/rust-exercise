@@ -1534,17 +1534,35 @@
 //     println!("Result {}", *c.lock().unwrap());
 // }
 
-fn main() {
-    let a = 10;
-    {
-        let b = 20;
+// fn main() {
+//     let a = 10;
+//     {
+//         let b = 20;
 
-        let c = max(&a, &b);
+//         let c = max(&a, &b);
 
-        println!("{}", c);
-    }
+//         println!("{}", c);
+//     }
+// }
+
+// fn max<'a: 'b, 'b>(x: &'a i32, y: &'b i32) -> &'b i32 {
+//     if *x > *y { x } else { y }
+// }
+
+// A Cons List is a data structure that contains two elements: the value of the
+// current item and the next item. The last item in the list contains only a value called Nil
+// without a next item.
+// A Cons List is produced by recursively calling the cons function
+use crate::List::{ Cons, Nil };
+
+enum List {
+    Cons(i32, Box<List>),
+    Nil,
 }
 
-fn max<'a: 'b, 'b>(x: &'a i32, y: &'b i32) -> &'b i32 {
-    if *x > *y { x } else { y }
+fn main() {
+    // Error
+    // let list = Cons(1, Cons(2, Cons(5, Nil)));
+    // Work
+    let list1 = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 }

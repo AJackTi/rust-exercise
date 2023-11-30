@@ -1545,6 +1545,6 @@ fn main() {
     }
 }
 
-fn max<'a>(x: &'a i32, y: &'a i32) -> &'a i32 {
+fn max<'a: 'b, 'b>(x: &'a i32, y: &'b i32) -> &'b i32 {
     if *x > *y { x } else { y }
 }

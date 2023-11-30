@@ -1639,14 +1639,44 @@
 //     }
 // }
 
+// use std::thread;
+
+// fn main() {
+//     let v = vec![1, 2, 3];
+
+//     let handle = thread::spawn(move || {
+//         println!("vector value is: {:?}", v);
+//     });
+
+//     handle.join();
+// }
+
 use std::thread;
+use std::sync::mpsc;
+use std::time::Duration;
 
 fn main() {
-    let v = vec![1, 2, 3];
+    let (tx, rx) = mpsc::channel();
+    thread::spawn(move || {
+        // let value = String::from("Hi");
+        // tx.send(value).unwrap();
+        let value = vec![
+            String::from("Hi"),
+            String::from("welcome"),
+            String::from("to"),
+            String::from("Rust")
+        ];
 
-    let handle = thread::spawn(move || {
-        println!("vector value is: {:?}", v);
+        for i in value {
+            tx.send(i).unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
     });
 
-    handle.join();
+    // let received = rx.recv().unwrap();
+    // println!("Got the message: {}", received.as_str());
+
+    for received in rx {
+        println!("{}", received);
+    }
 }

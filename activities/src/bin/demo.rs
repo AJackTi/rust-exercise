@@ -1608,14 +1608,33 @@
 //     println!("{}", a);
 // }
 
-use std::rc::Rc;
-use std::cell::RefCell;
+// use std::rc::Rc;
+// use std::cell::RefCell;
+
+// fn main() {
+//     let value = Rc::new(RefCell::new(5));
+//     let b = Rc::new(Rc::clone(&value));
+
+//     *b.borrow_mut() += 10;
+
+//     println!("{:?}", b);
+// }
+
+use std::thread;
+use std::time::Duration;
 
 fn main() {
-    let value = Rc::new(RefCell::new(5));
-    let b = Rc::new(Rc::clone(&value));
+    let handle = thread::spawn(|| {
+        for i in 0..10 {
+            println!("New thread {}", i);
+            thread::sleep(Duration::from_secs(2));
+        }
+    });
 
-    *b.borrow_mut() += 10;
+    handle.join();
 
-    println!("{:?}", b);
+    for i in 0..5 {
+        println!("Main thread {}", i);
+        thread::sleep(Duration::from_secs(2));
+    }
 }

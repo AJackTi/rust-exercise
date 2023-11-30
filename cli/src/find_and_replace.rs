@@ -1,4 +1,4 @@
-use std::env;
+use std::{ env, fs };
 
 use text_colorizer::*;
 
@@ -16,7 +16,34 @@ fn print_help() {
     eprintln!("Usage: <target string> <replacement string> <INPUT FILE> <OUTPUT FILE>");
 }
 
-pub fn run() {
+fn read_and_write(args: &Arguments) {
+    let data = match fs::read_to_string(&args.input_file) {
+        Ok(f) => f,
+        Err(e) => {
+            eprintln!(
+                "{} failed to read from file {}: {:?}",
+                "Error".red().bold(),
+                args.input_file,
+                e
+            );
+            std::process::exit(1);
+        }
+    };
+
+    match fs::write(&args.output_file, &data) {
+        Ok(_) => {}
+        Err(e) => {
+            eprintln!(
+                "{} failed to write to file {}: {:?}",
+                "Error".red().bold(),
+                args.input_file,
+                e
+            )
+        }
+    }
+}
+
+fn parse_args() -> Arguments {
     let args: Vec<String> = env::args().skip(1).collect();
     if args.len() != 4 {
         print_help();
@@ -25,6 +52,19 @@ pub fn run() {
             "Error".red().bold(),
             args.len()
         );
-        std::process::exit(1)
+        std::process::exit(1);
     }
+
+    Arguments {
+        pattern: args[0].clone(),
+        replace: args[1].clone(),
+        input_file: args[2].clone(),
+        output_file: args[3].clone(),
+    }
+}
+
+pub fn run() {
+    let args = parse_args();
+    println!("{:?}", args);
+    read_and_write(&args)
 }

@@ -1800,13 +1800,25 @@
 //     print(motorcycle);
 // }
 
-use std::fs::File;
+// use std::fs::File;
+
+// fn main() {
+//     // panic!("This will cause the program to abruptly end");
+
+//     // let f = File::open("doesnotexist.txt").expect("No such thing");
+//     let f = File::open("doesnotexist.txt").unwrap();
+
+//     println!("The program is working here");
+// }
 
 fn main() {
-    // panic!("This will cause the program to abruptly end");
+    let solution = is_seven(7).unwrap();
+    print!("{}", solution);
 
-    // let f = File::open("doesnotexist.txt").expect("No such thing");
-    let f = File::open("doesnotexist.txt").unwrap();
+    let solution = is_seven(6).unwrap();
+    print!("{}", solution);
+}
 
-    println!("The program is working here");
+fn is_seven(n: i32) -> Result<bool, String> {
+    if n == 7 { Ok(true) } else { Err("This is not seven".to_string()) }
 }

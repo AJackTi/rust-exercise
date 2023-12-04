@@ -1811,14 +1811,51 @@
 //     println!("The program is working here");
 // }
 
-fn main() {
-    let solution = is_seven(7).unwrap();
-    print!("{}", solution);
+// fn main() {
+//     let solution = is_seven(7).unwrap();
+//     print!("{}", solution);
 
-    let solution = is_seven(6).unwrap();
-    print!("{}", solution);
+//     let solution = is_seven(6).unwrap();
+//     print!("{}", solution);
+// }
+
+// fn is_seven(n: i32) -> Result<bool, String> {
+//     if n == 7 { Ok(true) } else { Err("This is not seven".to_string()) }
+// }
+
+use serde_derive::*;
+
+#[derive(Deserialize, Serialize, Debug)]
+pub struct Transaction {
+    from: String,
+    to: String,
+    amount: u64,
 }
 
-fn is_seven(n: i32) -> Result<bool, String> {
-    if n == 7 { Ok(true) } else { Err("This is not seven".to_string()) }
+fn main() {
+    let trans = get_transaction("test_data/transactions.json").expect(
+        "Could not load transactions"
+    );
+    for t in trans {
+        println!("{:?}", t);
+    }
+}
+
+fn get_transaction(fname: &str) -> Result<Vec<Transaction>, String> {
+    let s = match std::fs::read_to_string(fname) {
+        Ok(v) => v,
+        Err(e) => {
+            return Err(e.to_string());
+        }
+    };
+    let t: Vec<Transaction> = match serde_json::from_str(&s) {
+        Ok(v) => v,
+        Err(e) => {
+            return Err(e.to_string());
+        }
+    };
+    Ok(t)
+
+    // Ok(Vec::new())
+    // Err("No Trans".to_string())
 }

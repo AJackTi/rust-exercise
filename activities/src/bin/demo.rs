@@ -1833,7 +1833,7 @@ pub struct Transaction {
 }
 
 fn main() {
-    let trans = get_transaction("test_data/transactions.json").expect(
+    let trans = get_transactions_b("test_data/transactions.json").expect(
         "Could not load transactions"
     );
     for t in trans {
@@ -1841,7 +1841,7 @@ fn main() {
     }
 }
 
-fn get_transaction(fname: &str) -> Result<Vec<Transaction>, String> {
+fn get_transactions(fname: &str) -> Result<Vec<Transaction>, String> {
     let s = match std::fs::read_to_string(fname) {
         Ok(v) => v,
         Err(e) => {
@@ -1858,4 +1858,11 @@ fn get_transaction(fname: &str) -> Result<Vec<Transaction>, String> {
 
     // Ok(Vec::new())
     // Err("No Trans".to_string())
+}
+
+fn get_transactions_b(fname: &str) -> Result<Vec<Transaction>, String> {
+    std::fs
+        ::read_to_string(fname)
+        .map_err(|e| e.to_string())
+        .and_then(|ld| serde_json::from_str(&ld).map_err(|e| e.to_string()))
 }

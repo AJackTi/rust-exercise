@@ -4,6 +4,7 @@ use serde_derive::*;
 pub enum TransactionError {
     LoadError(std::io::Error),
     ParseError(serde_json::Error),
+    Mess(&'static str),
 }
 
 impl From<std::io::Error> for TransactionError {
@@ -18,6 +19,12 @@ impl From<serde_json::Error> for TransactionError {
     }
 }
 
+impl From<&'static str> for TransactionError {
+    fn from(e: &'static str) -> Self {
+        TransactionError::Mess(e)
+    }
+}
+
 #[derive(Deserialize, Serialize, Debug)]
 pub struct Transaction {
     from: String,
@@ -25,7 +32,7 @@ pub struct Transaction {
     amount: u64,
 }
 
-fn main() {
+fn main() -> Result<(), TransactionError> {
     let trans = get_transactions_b("test_data/transactions.json").expect(
         "Could not load transactions"
     );
@@ -33,6 +40,14 @@ fn main() {
     for t in trans {
         println!("{:?}", t);
     }
+
+    // First trans
+    let t = get_first_transaction_for("test_data/transactions.json", "abc").ok_or(
+        "could not get first transaction"
+    )?;
+    println!("{:?}", t);
+
+    Ok(())
 }
 
 pub fn get_transactions(fname: &str) -> Result<Vec<Transaction>, String> {
@@ -78,4 +93,15 @@ pub fn get_transactions_b(fname: &str) -> Result<Vec<Transaction>, TransactionEr
     //     }
     // })
     Ok(serde_json::from_str(&std::fs::read_to_string(fname)?)?)
+}
+
+fn get_first_transaction_for(fname: &str, uname: &str) -> Option<Transaction> {
+    let trans = get_transactions_b(fname).ok()?;
+    for t in trans {
+        if t.from == uname {
+            return Some(t);
+        }
+    }
+
+    None
 }

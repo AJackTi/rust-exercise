@@ -2,6 +2,10 @@
 name = "d2_iterators"
 version = "0.1.0"
 edition = "2021"
+license = "MIT"
+keywords = ["iterators", "itertools", "parallel", "parallelism", "d2"]
+description = "D2 Iterators"
+readme = "README.md"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

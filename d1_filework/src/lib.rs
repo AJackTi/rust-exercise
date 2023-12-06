@@ -54,13 +54,13 @@ pub fn get_transactions_b(fname: &str) -> Result<Vec<Transaction>, TransactionEr
     Ok(serde_json::from_str(&std::fs::read_to_string(fname)?)?)
 }
 
-pub fn get_first_transaction_for(fname: &str, uname: &str) -> Option<Transaction> {
-    let trans = get_transactions_b(fname).ok()?;
+pub fn get_first_transaction_for(fname: &str, uname: &str) -> Result<Transaction, failure::Error> {
+    let trans = get_transactions_b(fname)?;
     for t in trans {
         if t.from == uname {
-            return Some(t);
+            return Ok(t);
         }
     }
 
-    None
+    Err(TransactionError::Mess("Could not find transaction with that name").into())
 }

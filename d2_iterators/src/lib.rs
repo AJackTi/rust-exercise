@@ -1,4 +1,5 @@
 mod gen_range;
+mod combi;
 use std::ops::AddAssign;
 
 pub trait Rangeable: AddAssign + PartialOrd + Copy {}
@@ -42,5 +43,13 @@ mod tests {
         }
 
         assert_eq!(m, 5 + 8 + 11);
+    }
+
+    #[test]
+    fn filter() {
+        let v: i32 = GenRangeIterator::new(3, 13, 3)
+            .filter(|x| x % 2 == 0)
+            .sum();
+        assert_eq!(v, 6 + 12)
     }
 }

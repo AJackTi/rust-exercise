@@ -25,4 +25,10 @@ path = "src/v4_channels.rs"
 name = "v5_pool"
 path = "src/v5_pool.rs"
 
+[[bin]]
+name = "v6_rayon"
+path = "src/v6_rayon.rs"
+
 [dependencies]
+
+rayon = "1.0.3"

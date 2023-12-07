@@ -1,6 +1,7 @@
 use std::fmt::Display;
 
-mod card;
+pub mod card;
+pub mod svg_mac;
 
 #[derive(Debug, PartialEq)]
 pub enum Property {

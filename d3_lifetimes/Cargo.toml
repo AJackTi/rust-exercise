@@ -5,4 +5,12 @@ edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
+[[bin]]
+name = "d3_lifetime"
+path = "src/main.rs"
+
+[[bin]]
+name = "d2_lifetime"
+path = "src/v2_closure.rs"
+
 [dependencies]

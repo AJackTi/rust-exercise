@@ -17,4 +17,8 @@ path = "src/v2_closure.rs"
 name = "v3_rc"
 path = "src/v3_rc.rs"
 
+[[bin]]
+name = "v4_channels"
+path = "src/v4_channels.rs"
+
 [dependencies]

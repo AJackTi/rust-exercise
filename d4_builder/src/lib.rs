@@ -1,5 +1,7 @@
 use std::fmt::Display;
 
+mod card;
+
 #[derive(Debug, PartialEq)]
 pub enum Property {
     Simple(&'static str, String),

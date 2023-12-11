@@ -15,7 +15,6 @@ macro_rules! svg {
 
 #[cfg(test)]
 pub mod macro_test {
-    use super::*;
     use crate::SvgTag;
 
     #[test]

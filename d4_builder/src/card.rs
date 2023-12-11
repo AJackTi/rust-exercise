@@ -1,4 +1,5 @@
 use std::collections::BTreeMap;
+use d4_builder_derive::*;
 
 #[derive(Debug, PartialEq)]
 pub enum Ability {
@@ -14,7 +15,7 @@ pub enum Trigger {
     Damage,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Setter)]
 pub struct Card {
     pub name: String,
     pub strength: i32,
@@ -166,5 +167,11 @@ mod test_builder {
 
         assert_eq!(wrap.trigger(Trigger::BattleCry).unwrap(), "Cry Battle");
         assert_eq!(wrap.trigger(Trigger::Death).unwrap(), "Say Aaaargh");
+    }
+
+    #[test]
+    fn test_setter_macro() {
+        let c2 = Card::build("c2".to_string()).build();
+        c2.dothing();
     }
 }

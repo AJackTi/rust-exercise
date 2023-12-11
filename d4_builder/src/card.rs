@@ -171,7 +171,8 @@ mod test_builder {
 
     #[test]
     fn test_setter_macro() {
-        let c2 = Card::build("c2".to_string()).build();
-        c2.dothing();
+        let mut c2 = Card::build("c2".to_string()).build();
+        c2.set_strength(4);
+        assert_eq!(c2.strength, 4)
     }
 }

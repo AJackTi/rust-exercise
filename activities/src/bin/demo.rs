@@ -1823,26 +1823,147 @@
 //     if n == 7 { Ok(true) } else { Err("This is not seven".to_string()) }
 // }
 
-mod error;
+// mod error;
 
-extern crate mylib;
-use crate::error::*;
-use crate::mylib::*;
+// extern crate mylib;
+// use crate::error::*;
+// use crate::mylib::*;
 
-fn main() -> Result<(), TransactionError> {
-    let trans = get_transactions_b("test_data/transactions.json").expect(
-        "Could not load transactions"
-    );
-    for t in trans {
-        println!("{:?}", t);
+// fn main() -> Result<(), TransactionError> {
+//     let trans = get_transactions_b("test_data/transactions.json").expect(
+//         "Could not load transactions"
+//     );
+//     for t in trans {
+//         println!("{:?}", t);
+//     }
+
+//     // First trans
+//     let t = get_first_transaction_for("test_data/transactions.json", "abc").ok_or(
+//         "could not get first transaction"
+//     )?;
+
+//     println!("The first transaction is: {:?}", t);
+
+//     Ok(())
+// }
+
+/*
+fn main() {
+    /*
+    let l: [u8; 5] = [5, 6, 7, 8, 9];
+    println!("{:?}", l.as_ptr());
+
+    unsafe {
+        let temp = std::ptr::read(l.as_ptr() as *const u8);
+        println!("{}", temp);
+
+        let temp = std::ptr::read(((l.as_ptr() as isize) + (1 as isize)) as *const u8);
+        println!("{}", temp);
+
+        let temp = std::ptr::read(((l.as_ptr() as isize) + (2 as isize)) as *const u8);
+        println!("{}", temp);
+
+        let temp = std::ptr::read(((l.as_ptr() as isize) + (3 as isize)) as *const u8);
+        println!("{}", temp);
+
+        let temp = std::ptr::read(((l.as_ptr() as isize) + (4 as isize)) as *const u8);
+        println!("{}", temp);
+
+        let temp = std::ptr::read(((l.as_ptr() as isize) + (5 as isize)) as *const u8);
+        println!("{}", temp);
+
+        let temp = std::ptr::read(
+            ((l.as_ptr() as isize) + ((std::mem::size_of::<i32>() * 3) as isize)) as *const u8
+        );
+        println!("{}", temp);
+    }
+    */
+
+    /*
+    let l: [i32; 5] = [5, 6, 7, 8, 9];
+
+    for i in l.iter() {
+        println!("{}", i);
     }
 
-    // First trans
-    let t = get_first_transaction_for("test_data/transactions.json", "abc").ok_or(
-        "could not get first transaction"
-    )?;
+    for i in 0..l.len() {
+        // println!("{}", l[i]);
 
-    println!("The first transaction is: {:?}", t);
+        let res = l.get(i);
+        match res {
+            Some(value) => println!("{}", value),
+            None => println!("None"),
+        }
+    }
+    */
 
-    Ok(())
+    /*
+    let mut l: [i32; 5] = [5, 6, 7, 8, 9];
+    /*
+    for i in l.iter_mut() {
+        *i *= 2;
+        println!("{}", i);
+    }
+    */
+
+    for i in l.into_iter() {
+        println!("{}", i);
+    }
+    */
+
+    /*
+    let mut l: [i32; 5] = [5, 6, 7, 8, 9];
+    // println!("{}", l.contains(&8));
+
+    let t = l
+        .iter()
+        .map(|x| x * 2)
+        .collect::<Vec<i32>>();
+    println!("{:?}", t);
+    */
+
+    let mut l: [i32; 100] = [0; 100];
+
+    let mut v1: Vec<i32> = vec![1, 2, 3, 4, 5];
+    v1.push(100);
+
+    let v2: Vec<i32> = Vec::new();
+
+    let temp = v1.pop().unwrap();
+    println!("{}", temp);
+
+    let t: i32 = v1.iter().sum();
+    println!("{}", t);
+
+    let t = v1
+        .iter()
+        .map(|x| x * 2)
+        .collect::<Vec<i32>>();
+    println!("{:?}", t);
+
+    let t = (0..100).collect::<Vec<i32>>();
+    println!("{:?}", t);
+
+    let mut v3: Vec<Vec<i32>> = Vec::new();
+    v3.push(v1);
+    println!("{:?}", v3);
+
+    let mut name: Vec<char> = vec!['T', 'e', 't'];
+    name.push('a');
+    println!("{:?}", name);
+
+    let name: &str = "laptop";
+    for i in name.chars() {
+        println!("{}", i);
+    }
+
+    let mut myname = name.to_string();
+    println!("{}", myname);
+
+    myname.push_str(" is heating");
+    println!("{}", myname);
+
+    let u: Vec<u8> = vec![1, 2, 3, 4, 5];
+    println!("{:?}", String::from_utf8_lossy(&u[..]));
 }
+*/

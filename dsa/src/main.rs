@@ -20,8 +20,22 @@ fn fib(num: i32) -> i32 {
     return n1 + n2;
 }
 
+fn palindrom(array: &Vec<i32>, start: usize, end: usize) -> bool {
+    if start >= end {
+        return true;
+    }
+
+    if array[start] != array[end] {
+        return false;
+    }
+
+    return palindrom(array, start + 1, end - 1);
+}
+
 fn main() {
     println!("{:?}", fact(5));
 
     println!("{}", fib(15));
+
+    println!("{:?}", palindrom(&vec![1, 2, 3, 2, 1], 0, 4));
 }

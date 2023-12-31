@@ -58,6 +58,19 @@ fn triangle(arr: &mut Vec<i8>, size: usize) {
     println!("{:?}", arr);
 }
 
+fn selection_sort(array: &mut Vec<i32>) {
+    for i in 0..array.len() {
+        let mut smallest = i;
+        for j in i + 1..array.len() {
+            if array[j] < array[smallest] {
+                smallest = j;
+            }
+        }
+        array.swap(i, smallest);
+    }
+    array.to_vec();
+}
+
 fn main() {
     // println!("{:?}", fact(5));
 
@@ -71,6 +84,11 @@ fn main() {
     // println!("{}", toh(3));
     // println!("{}", toh(4));
 
-    let mut vec = vec![1, 2, 3, 4, 5];
-    triangle(&mut vec, 5);
+    // let mut vec = vec![1, 2, 3, 4, 5];
+    // triangle(&mut vec, 5);
+
+    let mut vec = vec![4, 3, 1, 2];
+    println!("Before sorting: {:?}", vec);
+    selection_sort(&mut vec);
+    println!("After sorting: {:?}", vec);
 }

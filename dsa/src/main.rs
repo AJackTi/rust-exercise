@@ -117,6 +117,31 @@ fn merge(arr: &mut [i32], mid: usize) {
     }
 }
 
+fn quick_sort(arr: &mut [i32], start: usize, end: usize) -> Vec<i32> {
+    if start < end {
+        let part = partition(arr, start, end);
+        quick_sort(arr, start, part - 1);
+        quick_sort(arr, part + 1, end);
+    }
+
+    arr.to_vec()
+}
+
+fn partition(arr: &mut [i32], start: usize, end: usize) -> usize {
+    let mut i = start;
+    let pivot = end;
+
+    for j in start..end {
+        if arr[j] < arr[pivot] {
+            arr.swap(i, j);
+            i += 1;
+        }
+    }
+
+    arr.swap(i, pivot);
+    i
+}
+
 fn main() {
     // println!("{:?}", fact(5));
 
@@ -140,7 +165,12 @@ fn main() {
     // bubble_sort(&mut vec);
     // println!("After sorting: {:?}", vec);
 
-    let mut vec = vec![4, 7, 3, 5, 1, 2];
-    merge_sort(&mut vec);
-    println!("{:?}", vec);
+    // let mut vec = vec![4, 7, 3, 5, 1, 2];
+    // merge_sort(&mut vec);
+    // println!("{:?}", vec);
+
+    let mut array = vec![4, 7, 3, 5, 1, 2];
+    let len = array.len();
+    quick_sort(&mut array, 0, len - 1);
+    println!("{:?}", array);
 }

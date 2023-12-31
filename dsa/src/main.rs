@@ -71,6 +71,18 @@ fn selection_sort(array: &mut Vec<i32>) {
     array.to_vec();
 }
 
+fn bubble_sort(array: &mut Vec<i32>) {
+    for i in 0..array.len() {
+        for j in 0..array.len() - i - 1 {
+            if array[j] > array[j + 1] {
+                array.swap(j, j + 1);
+            }
+        }
+    }
+
+    array.to_vec();
+}
+
 fn main() {
     // println!("{:?}", fact(5));
 
@@ -89,6 +101,8 @@ fn main() {
 
     let mut vec = vec![4, 3, 1, 2];
     println!("Before sorting: {:?}", vec);
-    selection_sort(&mut vec);
+    // selection_sort(&mut vec);
+    // println!("After sorting: {:?}", vec);
+    bubble_sort(&mut vec);
     println!("After sorting: {:?}", vec);
 }

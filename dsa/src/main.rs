@@ -72,11 +72,16 @@ fn selection_sort(array: &mut Vec<i32>) {
 }
 
 fn bubble_sort(array: &mut Vec<i32>) {
-    for i in 0..array.len() {
-        for j in 0..array.len() - i - 1 {
+    let mut sorted = false;
+    for _ in 1..=array.len() - 1 {
+        for j in 0..=array.len() - 2 {
             if array[j] > array[j + 1] {
                 array.swap(j, j + 1);
+                sorted = false;
             }
+        }
+        if sorted {
+            break;
         }
     }
 
